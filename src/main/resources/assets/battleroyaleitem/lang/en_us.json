@@ -1,0 +1,61 @@
+{
+  "item.battleroyaleitem.bandage": "",
+  "item.battleroyaleitem.bandage.tooltip": "",
+  "item.battleroyaleitem.bandage.tooltip.use": "",
+  "item.battleroyaleitem.bandage.use_success": "",
+  "item.battleroyaleitem.bandage.use_short": "",
+  "item.battleroyaleitem.bandage.use_failure": "",
+
+  "item.battleroyaleitem.medkit": "",
+  "item.battleroyaleitem.medkit.tooltip": "",
+  "item.battleroyaleitem.medkit.tooltip.use": "",
+  "item.battleroyaleitem.medkit.use_success": "",
+  "item.battleroyaleitem.medkit.use_short": "",
+  "item.battleroyaleitem.medkit.use_failure": "",
+
+  "item.battleroyaleitem.chameleon": "",
+  "item.battleroyaleitem.chameleon.tooltip": "",
+  "item.battleroyaleitem.chameleon.tooltip.use": "",
+  "item.battleroyaleitem.chameleon.use_success": "",
+  "item.battleroyaleitem.chameleon.use_short": "",
+  "item.battleroyaleitem.chameleon.effect_ended_by_hurt": "",
+  "item.battleroyaleitem.chameleon.effect_ended_by_time": "",
+
+  "item.battleroyaleitem.regeneration_syringe": "",
+  "item.battleroyaleitem.regeneration_syringe.tooltip": "",
+  "item.battleroyaleitem.regeneration_syringe.tooltip.use": "",
+  "item.battleroyaleitem.regeneration_syringe.use_success": "",
+  "item.battleroyaleitem.regeneration_syringe.use_short": "",
+
+  "item.battleroyaleitem.phase_core": "",
+  "item.battleroyaleitem.phase_core.tooltip": "",
+  "item.battleroyaleitem.phase_core.tooltip.use": "",
+  "item.battleroyaleitem.phase_core.use_success": "",
+  "item.battleroyaleitem.phase_core.use_short": "",
+  "item.battleroyaleitem.phase_core.trace_back": "",
+
+  "item.battleroyaleitem.bio_radar": "",
+  "item.battleroyaleitem.bio_radar.tooltip": "",
+  "item.battleroyaleitem.bio_radar.tooltip.use": "",
+  "item.battleroyaleitem.bio_radar.use_success": "",
+  "item.battleroyaleitem.bio_radar.use_short": "",
+  "item.battleroyaleitem.bio_radar.use_fail": "",
+  "item.battleroyaleitem.bio_radar.detected": "",
+
+  "item.battleroyaleitem.lift_device": "",
+  "item.battleroyaleitem.lift_device.tooltip": "",
+  "item.battleroyaleitem.lift_device.tooltip.use": "",
+
+  "item.battleroyaleitem.armor_plate": "",
+  "item.battleroyaleitem.armor_plate.tooltip": "",
+  "item.battleroyaleitem.armor_plate.tooltip.use": "",
+  "item.battleroyaleitem.armor_plate.use_short": "",
+  "item.battleroyaleitem.armor_plate.use_fail": "",
+
+  "container.airdrop": "",
+
+  "key.category.battleroyaleitem": "",
+  "key.battleroyaleitem.stop_phasing": "",
+
+  "itemGroup.battleroyaleitemtab": ""
+}
