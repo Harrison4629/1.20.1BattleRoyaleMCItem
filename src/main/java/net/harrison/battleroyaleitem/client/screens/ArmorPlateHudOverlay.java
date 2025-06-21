@@ -4,7 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.harrison.battleroyaleitem.Battleroyaleitem;
 import net.harrison.battleroyaleitem.client.ClientArmorPlateData;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
@@ -22,23 +21,20 @@ public class ArmorPlateHudOverlay {
             return;
         }
 
-        int x = screenWidth/2;
         int y = screenHeight;
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, EMPTY_ARMOR_PLATE);
+
         for (int i = 0; i<3; i++) {
-            guiGraphics.blit(EMPTY_ARMOR_PLATE, x + 7 + (i * 27), y - 60 , 0, 0, 32, 32,
+            guiGraphics.blit(EMPTY_ARMOR_PLATE, 20 + (i * 27), y - 51 , 0, 0, 32, 32,
                     32, 32);
         }
 
-        RenderSystem.setShaderTexture(0, LOADED_ARMOR_PLATE);
         for (int i = 0; i<3; i++) {
             if (ClientArmorPlateData.getArmorNum() > i) {
-                guiGraphics.blit(LOADED_ARMOR_PLATE,x + 7 + (i * 27), y - 60 , 0, 0, 32, 32,
+                guiGraphics.blit(LOADED_ARMOR_PLATE,20 + (i * 27), y - 51 , 0, 0, 32, 32,
                         32, 32);
-
             } else {
                 break;
             }
