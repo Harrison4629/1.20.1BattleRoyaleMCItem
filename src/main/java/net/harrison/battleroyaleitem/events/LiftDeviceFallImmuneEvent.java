@@ -4,6 +4,7 @@ import net.harrison.battleroyaleitem.Battleroyaleitem;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -29,7 +30,7 @@ public class LiftDeviceFallImmuneEvent {
     }
 
     @SubscribeEvent
-    public static void onPlayerHurt(LivingHurtEvent event) {
+    public static void onPlayerFall(LivingFallEvent event) {
         if (event.getEntity().level().isClientSide()) {
             return;
         }
@@ -38,12 +39,9 @@ public class LiftDeviceFallImmuneEvent {
             return;
         }
 
-        DamageSource source = event.getSource();
-        if (source.is(DamageTypes.FALL)) {
-            if (isImmune(player.getUUID())) {
-                event.setCanceled(true);
-                resetImmune(player.getUUID());
-            }
+        if (isImmune(player.getUUID())) {
+            event.setCanceled(true);
+            resetImmune(player.getUUID());
         }
     }
 }
