@@ -27,13 +27,13 @@ public class ArmorPlateHudOverlay {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
         for (int i = 0; i<3; i++) {
-            guiGraphics.blit(EMPTY_ARMOR_PLATE, 20 + (i * 27), y - 51 , 0, 0, 32, 32,
+            guiGraphics.blit(EMPTY_ARMOR_PLATE, 20 + (i * 27), y - 49 , 0, 0, 32, 32,
                     32, 32);
         }
 
         for (int i = 0; i<3; i++) {
             if (ClientArmorPlateData.getArmorNum() > i) {
-                guiGraphics.blit(LOADED_ARMOR_PLATE,20 + (i * 27), y - 51 , 0, 0, 32, 32,
+                guiGraphics.blit(LOADED_ARMOR_PLATE,20 + (i * 27), y - 49 , 0, 0, 32, 32,
                         32, 32);
             } else {
                 break;

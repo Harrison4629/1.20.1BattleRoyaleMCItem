@@ -13,7 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
 public class RegenerationSyringeItem extends AbsRHoldItem {
-    private static final int USE_DURATION = 100;
+    private static final int USE_DURATION = 80;
     private static final int REGEN_DURATION = 400;
     private static final int COOLDOWN_TICKS = 200;
 
