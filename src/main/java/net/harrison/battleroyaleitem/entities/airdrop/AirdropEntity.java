@@ -29,10 +29,10 @@ import org.jetbrains.annotations.Nullable;
 
 
 public class AirdropEntity extends Entity implements Container, MenuProvider{
-    private final NonNullList<ItemStack> items = NonNullList.withSize(27, ItemStack.EMPTY);
+    private final NonNullList<ItemStack> items = NonNullList.withSize(54, ItemStack.EMPTY);
 
     private static final double FALL_SPEED = -0.05D; // 负值表示向下，可以调整这个值来控制速度
-    private static final double TERMINAL_VELOCITY = -0.2D; // 终端速度，防止无限加速
+    private static final double TERMINAL_VELOCITY = -0.15D; // 终端速度，防止无限加速
 
     private final float AIRDROP_LUCKY_VALUE = 1.0F;
 
@@ -74,7 +74,7 @@ public class AirdropEntity extends Entity implements Container, MenuProvider{
                 fall = new Vec3(fall.x, TERMINAL_VELOCITY, fall.z);
             }
 
-            double horizontalDrag = 0.7; // 水平阻力系数，可以根据需要调整，数值越大阻力越小
+            double horizontalDrag = 0.7; // 水平阻力系数，数值越大阻力越小
             fall = new Vec3(
                     fall.x * horizontalDrag,
                     fall.y,
@@ -242,7 +242,7 @@ public class AirdropEntity extends Entity implements Container, MenuProvider{
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return ChestMenu.threeRows(pContainerId, pPlayerInventory, this) ;
+        return ChestMenu.sixRows(pContainerId, pPlayerInventory, this) ;
     }
 
     @Override
