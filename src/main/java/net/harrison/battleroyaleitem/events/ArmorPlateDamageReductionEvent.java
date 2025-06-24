@@ -49,12 +49,13 @@ public class ArmorPlateDamageReductionEvent {
                 float damage = event.getAmount();
                 numofArmorPlate.subHP(damage);
                 event.setCanceled(true);
-
-                if (numofArmorPlate.getNumofArmorPlate() == 0) {
+                if (numofArmorPlate.getNumofArmorPlate() < armorPlateCount) {
                     player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS,0.8F, 1.0F);
-                    ParticleSummon.explosion(player.level(), player.getPosition(1.0F), 5);
                 }
 
+                if (numofArmorPlate.getNumofArmorPlate() == 0) {
+                    ParticleSummon.explosion(player.level(), player.getPosition(1.0F).add(0, 1, 0), 5);
+                }
             }
             ModMessages.sendToPlayer(new ArmorPlateSyncS2CPacket(numofArmorPlate.getNumofArmorPlate()), (ServerPlayer) player);
         });

@@ -23,7 +23,7 @@
 
   "item.battleroyaleitem.regeneration_syringe": "再生注射器",
   "item.battleroyaleitem.regeneration_syringe.tooltip": "注入即刻启动细胞再生",
-  "item.battleroyaleitem.regeneration_syringe.tooltip.use": "长按右键获得一级回复效果20秒",
+  "item.battleroyaleitem.regeneration_syringe.tooltip.use": "长按右键获得一级回复效果20秒和5级迅捷效果5秒",
   "item.battleroyaleitem.regeneration_syringe.use_success": "一股温热的能量在体内蔓延，伤口迅速愈合",
   "item.battleroyaleitem.regeneration_syringe.use_short": "还没开始回血，效果就结束了",
 

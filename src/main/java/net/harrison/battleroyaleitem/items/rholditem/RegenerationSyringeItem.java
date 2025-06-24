@@ -13,8 +13,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
 public class RegenerationSyringeItem extends AbsRHoldItem {
-    private static final int USE_DURATION = 80;
+    private static final int USE_DURATION = 50;
     private static final int REGEN_DURATION = 400;
+    private static final int MOVEMENT_SPEED_DURATION = 100;
     private static final int COOLDOWN_TICKS = 200;
 
     public RegenerationSyringeItem(Properties properties) {
@@ -26,6 +27,7 @@ public class RegenerationSyringeItem extends AbsRHoldItem {
         if (!level.isClientSide) {
 
             player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, REGEN_DURATION, 1, false, false));
+            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, MOVEMENT_SPEED_DURATION, 5, false, false));
 
             player.displayClientMessage(Component.translatable("item.battleroyaleitem.regeneration_syringe.use_success")
                     .withStyle(ChatFormatting.YELLOW), true);

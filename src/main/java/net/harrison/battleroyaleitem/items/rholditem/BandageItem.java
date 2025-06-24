@@ -9,7 +9,7 @@ import net.minecraft.world.level.Level;
 public class BandageItem extends AbsRHoldItem {
     private static final int USE_DURATION = 20;
     private static final int HEALING_AMOUNT = 4;
-    private static final int COOLDOWN_TICKS = 40;
+    private static final int COOLDOWN_TICKS = 30;
 
     public BandageItem(Properties properties) {
         super(properties, USE_DURATION, COOLDOWN_TICKS);

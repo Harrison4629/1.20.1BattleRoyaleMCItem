@@ -19,7 +19,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ArmorPlateItem extends AbsRHoldItem {
-    private static final int USE_DURATION = 30;
+    private static final int USE_DURATION = 20;
     private static final int COOLDOWN_TICKS = 10;
 
 

@@ -81,4 +81,9 @@ public class ChameleonItem extends AbsRHoldItem {
     protected ParticleOptions getParticleType() {
         return ParticleTypes.SNOWFLAKE;
     }
+
+    @Override
+    public float getVolume() {
+        return 2.0F;
+    }
 }
