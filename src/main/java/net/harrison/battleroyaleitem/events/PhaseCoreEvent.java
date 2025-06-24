@@ -11,7 +11,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -23,11 +22,11 @@ public class PhaseCoreEvent {
     private static final float speed = PhaseCoreItem.PHASE_SPEED;
 
     @SubscribeEvent
-    public static void onServerLevelTick(TickEvent.LevelTickEvent event) {
-        if (event.phase == TickEvent.Phase.END && !event.level.isClientSide && event.level.dimension() == Level.OVERWORLD) {
+    public static void onServerTick(TickEvent.ServerTickEvent event) {
+        if (event.phase == TickEvent.Phase.END && !event.side.isClient()) {
             if (!PhaseData.DATA.isEmpty()) {
                 for (UUID playerId : PhaseData.DATA.keySet()) {
-                    ServerPlayer player = event.level.getServer().getPlayerList().getPlayer(playerId);
+                    ServerPlayer player = event.getServer().getPlayerList().getPlayer(playerId);
                     if (player != null) {
                         updatePhasing(player);
                     }
