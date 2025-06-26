@@ -42,22 +42,29 @@ public class ArmorPlateDamageReductionEvent {
         LazyOptional<NumofArmorPlate> armorCapability = player.getCapability(
                 NumofArmorPlateProvider.NUMOF_ARMOR_PLATE_CAPABILITY);
 
-        armorCapability.ifPresent(numofArmorPlate -> {
-            int armorPlateCount = numofArmorPlate.getNumofArmorPlate();
+        armorCapability.ifPresent(armorPlate -> {
+            int originArmorPlateCount = armorPlate.getNumofArmorPlate();
 
-            if (armorPlateCount > 0) {
+            if (originArmorPlateCount > 0) {
                 float damage = event.getAmount();
-                numofArmorPlate.subHP(damage);
+                float allArmorPlateHP = armorPlate.getHP() + (armorPlate.getNumofArmorPlate() - 1) * NumofArmorPlate.MAX_HP_PER_ARMOR_PLATE;
+                armorPlate.subHP(damage);
                 event.setCanceled(true);
-                if (numofArmorPlate.getNumofArmorPlate() < armorPlateCount) {
+                int decreasedArmorPlate = originArmorPlateCount - armorPlate.getNumofArmorPlate();
+                for (int i = 0; i < decreasedArmorPlate ; i++) {
                     player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS,0.8F, 1.0F);
                 }
 
-                if (numofArmorPlate.getNumofArmorPlate() == 0) {
+                if (armorPlate.getNumofArmorPlate() == 0) {
                     ParticleSummon.explosion(player.level(), player.getPosition(1.0F).add(0, 1, 0), 5);
+                    if (damage > allArmorPlateHP) {
+                        float extraDamage = damage - allArmorPlateHP;
+                        player.setHealth(player.getHealth() - extraDamage);
+                    }
                 }
+
             }
-            ModMessages.sendToPlayer(new ArmorPlateSyncS2CPacket(numofArmorPlate.getNumofArmorPlate()), (ServerPlayer) player);
+            ModMessages.sendToPlayer(new ArmorPlateSyncS2CPacket(armorPlate.getNumofArmorPlate()), (ServerPlayer) player);
         });
     }
 
