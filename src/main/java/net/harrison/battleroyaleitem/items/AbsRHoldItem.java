@@ -1,7 +1,7 @@
 package net.harrison.battleroyaleitem.items;
 
-import net.harrison.soundmanager.init.ModMessages;
-import net.harrison.soundmanager.networking.s2cpacket.PlaySoundToClientS2CPacket;
+import net.harrison.basicdevtool.init.ModMessages;
+import net.harrison.basicdevtool.networking.s2cpacket.PlaySoundToClientS2CPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;

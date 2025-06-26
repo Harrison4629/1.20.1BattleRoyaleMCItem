@@ -29,7 +29,7 @@ public class ModEntities {
                     .clientTrackingRange(20)
                     .updateInterval(3)
                     .fireImmune()
-                    .build(new ResourceLocation(Battleroyaleitem.MODID, "liftdevice").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Battleroyaleitem.MODID, "liftdevice").toString()));
 
     public static final RegistryObject<EntityType<AirdropEntity>> AIRDROP = ENTITY_TYPES.register("airdrop",
             () -> EntityType.Builder.of(AirdropEntity::new, MobCategory.MISC)
@@ -37,7 +37,7 @@ public class ModEntities {
                     .clientTrackingRange(200)
                     .updateInterval(3)
                     .fireImmune()
-                    .build(new ResourceLocation(Battleroyaleitem.MODID, "airdrop").toString()));
+                    .build(ResourceLocation.fromNamespaceAndPath(Battleroyaleitem.MODID, "airdrop").toString()));
 
 
 

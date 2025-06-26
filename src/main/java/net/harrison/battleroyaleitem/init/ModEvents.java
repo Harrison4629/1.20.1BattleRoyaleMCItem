@@ -19,7 +19,7 @@ public class ModEvents {
     public static void onAttachCapabilitiesPlayers(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof Player) {
             if (!event.getObject().getCapability(NumofArmorPlateProvider.NUMOF_ARMOR_PLATE_CAPABILITY).isPresent()) {
-                event.addCapability(new ResourceLocation(Battleroyaleitem.MODID, "properties"), new NumofArmorPlateProvider());
+                event.addCapability(ResourceLocation.fromNamespaceAndPath(Battleroyaleitem.MODID, "properties"), new NumofArmorPlateProvider());
             }
         }
     }

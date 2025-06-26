@@ -21,7 +21,7 @@ public class ModMessages {
 
     public static void register() {
         SimpleChannel net = NetworkRegistry.ChannelBuilder
-                .named(new ResourceLocation(Battleroyaleitem.MODID, "messages"))
+                .named(ResourceLocation.fromNamespaceAndPath(Battleroyaleitem.MODID, "messages"))
                 .networkProtocolVersion(() -> "1.0")
                 .clientAcceptedVersions(s -> true)
                 .serverAcceptedVersions(s -> true)
