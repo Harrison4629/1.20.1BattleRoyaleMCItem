@@ -27,6 +27,7 @@ public class NumofArmorPlate {
 
     public void subAllArmorPlate() {
         this.numofArmorPlate = 0;
+        this.ARMOR_PLATE_HP = 0;
     }
 
     public void copyFrom(NumofArmorPlate source) {
@@ -40,7 +41,6 @@ public class NumofArmorPlate {
             this.subArmorPlate();
             this.ARMOR_PLATE_HP = MAX_HP_PER_ARMOR_PLATE;
         }
-        //最后一块护甲板减免一次致命伤害
         if (excessiveDamage > 0 && this.numofArmorPlate > 0) {
             subHP(excessiveDamage);
         }
