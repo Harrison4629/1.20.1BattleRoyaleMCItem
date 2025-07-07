@@ -9,7 +9,7 @@ import net.minecraft.world.level.Level;
 public class MedkitItem extends AbsRHoldItem {
     private static final int USE_DURATION = 45;
     private static final int HEALING_AMOUNT = 12;
-    private static final int COOLDOWN_TICKS = 100;
+    private static final int COOLDOWN_TICKS = 40;
 
     public MedkitItem(Properties properties) {
         super(properties, USE_DURATION, COOLDOWN_TICKS);
