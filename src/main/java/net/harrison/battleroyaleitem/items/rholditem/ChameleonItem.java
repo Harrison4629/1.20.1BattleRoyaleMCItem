@@ -1,5 +1,6 @@
 package net.harrison.battleroyaleitem.items.rholditem;
 
+import net.harrison.battleroyaleitem.init.ModEffects;
 import net.harrison.battleroyaleitem.items.AbsRHoldItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleOptions;
@@ -14,16 +15,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-
 public class ChameleonItem extends AbsRHoldItem {
     private static final int USE_DURATION = 10;
     private static final int INVISIBILITY_DURATION = 160;
     private static final int COOLDOWN_TICKS = 140;
-
-    public static final Map<UUID, Integer> INVISIBLE_PLAYERS = new ConcurrentHashMap<>();
 
     public ChameleonItem(Properties properties) {
         super(properties, USE_DURATION, COOLDOWN_TICKS);
@@ -33,9 +28,8 @@ public class ChameleonItem extends AbsRHoldItem {
     protected void applyItem(Player player, Level level) {
         if (!level.isClientSide) {
 
+            player.addEffect(new MobEffectInstance(ModEffects.CHAMELEON_EFFECT.get(), INVISIBILITY_DURATION, 0, false, false));
             player.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, INVISIBILITY_DURATION, 0, false, false));
-
-            INVISIBLE_PLAYERS.put(player.getUUID(), INVISIBILITY_DURATION);
 
             player.displayClientMessage(Component.translatable("item.battleroyaleitem.chameleon.use_success")
                     .withStyle(ChatFormatting.GREEN), true);

@@ -1,8 +1,8 @@
 package net.harrison.battleroyaleitem.events;
 
 import net.harrison.battleroyaleitem.Battleroyaleitem;
-import net.harrison.battleroyaleitem.capabilities.armorplate.NumofArmorPlate;
-import net.harrison.battleroyaleitem.capabilities.armorplate.NumofArmorPlateProvider;
+import net.harrison.battleroyaleitem.capabilities.armorplate.ArmorPlate;
+import net.harrison.battleroyaleitem.capabilities.armorplate.ArmorPlateProvider;
 import net.harrison.battleroyaleitem.init.ModMessages;
 import net.harrison.battleroyaleitem.networking.s2cpacket.ArmorPlateSyncS2CPacket;
 import net.harrison.battleroyaleitem.particles.ParticleSummon;
@@ -35,27 +35,27 @@ public class ArmorPlateDamageReductionEvent {
         DamageSource source = event.getSource();
 
         if (source.is(DamageTypes.FALL) || source.is(DamageTypes.MAGIC) ||
-                source.is(DamageTypes.FELL_OUT_OF_WORLD)) {
+                source.is(DamageTypes.FELL_OUT_OF_WORLD) || source.is(DamageTypes.OUTSIDE_BORDER)) {
             return;
         }
 
-        LazyOptional<NumofArmorPlate> armorCapability = player.getCapability(
-                NumofArmorPlateProvider.NUMOF_ARMOR_PLATE_CAPABILITY);
+        LazyOptional<ArmorPlate> armorCapability = player.getCapability(
+                ArmorPlateProvider.ARMOR_PLATE_CAPABILITY);
 
         armorCapability.ifPresent(armorPlate -> {
-            int originArmorPlateCount = armorPlate.getNumofArmorPlate();
+            int originArmorPlateCount = armorPlate.getNumOfArmorPlate();
 
             if (originArmorPlateCount > 0) {
                 float damage = event.getAmount();
-                float allArmorPlateHP = armorPlate.getHP() + (armorPlate.getNumofArmorPlate() - 1) * NumofArmorPlate.MAX_HP_PER_ARMOR_PLATE;
+                float allArmorPlateHP = armorPlate.getHP() + (armorPlate.getNumOfArmorPlate() - 1) * armorPlate.MAX_HP_PER_ARMOR_PLATE;
                 armorPlate.subHP(damage);
                 event.setCanceled(true);
-                int decreasedArmorPlate = originArmorPlateCount - armorPlate.getNumofArmorPlate();
+                int decreasedArmorPlate = originArmorPlateCount - armorPlate.getNumOfArmorPlate();
                 for (int i = 0; i < decreasedArmorPlate ; i++) {
                     player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS,0.8F, 1.0F);
                 }
 
-                if (armorPlate.getNumofArmorPlate() == 0) {
+                if (armorPlate.getNumOfArmorPlate() == 0) {
                     ParticleSummon.explosion(player.level(), player.getPosition(1.0F).add(0, 1, 0), 5);
                     if (damage > allArmorPlateHP) {
                         float extraDamage = damage - allArmorPlateHP;
@@ -64,7 +64,7 @@ public class ArmorPlateDamageReductionEvent {
                 }
 
             }
-            ModMessages.sendToPlayer(new ArmorPlateSyncS2CPacket(armorPlate.getNumofArmorPlate()), (ServerPlayer) player);
+            ModMessages.sendToPlayer(new ArmorPlateSyncS2CPacket(armorPlate.getNumOfArmorPlate()), (ServerPlayer) player);
         });
     }
 
@@ -78,10 +78,10 @@ public class ArmorPlateDamageReductionEvent {
             return;
         }
 
-        LazyOptional<NumofArmorPlate> armorCapability = player.getCapability(NumofArmorPlateProvider.NUMOF_ARMOR_PLATE_CAPABILITY);
-        armorCapability.ifPresent(numofArmorPlate -> {
-                numofArmorPlate.subAllArmorPlate();
-            ModMessages.sendToPlayer(new ArmorPlateSyncS2CPacket(numofArmorPlate.getNumofArmorPlate()), (ServerPlayer) player);
+        LazyOptional<ArmorPlate> armorCapability = player.getCapability(ArmorPlateProvider.ARMOR_PLATE_CAPABILITY);
+        armorCapability.ifPresent(armorPlate -> {
+                //armorPlate.subAllArmorPlate();
+            ModMessages.sendToPlayer(new ArmorPlateSyncS2CPacket(armorPlate.getNumOfArmorPlate()), (ServerPlayer) player);
         });
     }
 
@@ -95,8 +95,8 @@ public class ArmorPlateDamageReductionEvent {
             return;
         }
 
-        LazyOptional<NumofArmorPlate> armorCapability = player.getCapability(NumofArmorPlateProvider.NUMOF_ARMOR_PLATE_CAPABILITY);
-        armorCapability.ifPresent(numofArmorPlate -> ModMessages.sendToPlayer(new ArmorPlateSyncS2CPacket(numofArmorPlate.getNumofArmorPlate()), player));
+        LazyOptional<ArmorPlate> armorCapability = player.getCapability(ArmorPlateProvider.ARMOR_PLATE_CAPABILITY);
+        armorCapability.ifPresent(numofArmorPlate -> ModMessages.sendToPlayer(new ArmorPlateSyncS2CPacket(numofArmorPlate.getNumOfArmorPlate()), player));
 
 
     }

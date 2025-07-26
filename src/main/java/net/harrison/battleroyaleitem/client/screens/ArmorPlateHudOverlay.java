@@ -17,7 +17,7 @@ public class ArmorPlateHudOverlay {
     public static final IGuiOverlay HUD_ARMOR_PLATE = ((gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
         Minecraft minecraft = Minecraft.getInstance();
 
-        if (minecraft.player != null && (minecraft.player.isCreative() || minecraft.player.isSpectator())) {
+        if (minecraft.player == null || minecraft.player.isCreative() || minecraft.player.isSpectator()) {
             return;
         }
 

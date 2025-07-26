@@ -1,7 +1,7 @@
 package net.harrison.battleroyaleitem.events;
 
 import net.harrison.battleroyaleitem.Battleroyaleitem;
-import net.harrison.battleroyaleitem.capabilities.armorplate.NumofArmorPlateProvider;
+import net.harrison.battleroyaleitem.capabilities.armorplate.ArmorPlateProvider;
 import net.harrison.battleroyaleitem.init.ModMessages;
 import net.harrison.battleroyaleitem.networking.s2cpacket.ArmorPlateSyncS2CPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -16,8 +16,8 @@ public class ArmorPlateDataEvent {
     public static void onPlayerJoinWorld(EntityJoinLevelEvent event) {
         if (!event.getLevel().isClientSide) {
             if (event.getEntity() instanceof ServerPlayer player) {
-                player.getCapability(NumofArmorPlateProvider.NUMOF_ARMOR_PLATE_CAPABILITY).ifPresent(numofArmorPlate -> {
-                    ModMessages.sendToPlayer(new ArmorPlateSyncS2CPacket(numofArmorPlate.getNumofArmorPlate()), player);
+                player.getCapability(ArmorPlateProvider.ARMOR_PLATE_CAPABILITY).ifPresent(numofArmorPlate -> {
+                    ModMessages.sendToPlayer(new ArmorPlateSyncS2CPacket(numofArmorPlate.getNumOfArmorPlate()), player);
                 });
             }
         }

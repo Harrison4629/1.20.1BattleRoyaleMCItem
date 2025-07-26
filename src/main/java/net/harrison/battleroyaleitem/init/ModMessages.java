@@ -3,7 +3,7 @@ package net.harrison.battleroyaleitem.init;
 import net.harrison.battleroyaleitem.Battleroyaleitem;
 import net.harrison.battleroyaleitem.networking.c2spacket.StopPhasingPacket;
 import net.harrison.battleroyaleitem.networking.s2cpacket.ArmorPlateSyncS2CPacket;
-import net.harrison.battleroyaleitem.networking.s2cpacket.LiftDevicePacket;
+import net.harrison.battleroyaleitem.networking.s2cpacket.DeltaMovementSyncS2CPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -45,16 +45,17 @@ public class ModMessages {
     }
 
     private static void registerS2CPackets(SimpleChannel net) {
-        net.messageBuilder(LiftDevicePacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(LiftDevicePacket::new)
-                .encoder(LiftDevicePacket::toBytes)
-                .consumerMainThread(LiftDevicePacket::handle)
-                .add();
 
         net.messageBuilder(ArmorPlateSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(ArmorPlateSyncS2CPacket::new)
                 .encoder(ArmorPlateSyncS2CPacket::toBytes)
                 .consumerMainThread(ArmorPlateSyncS2CPacket::handle)
+                .add();
+
+        net.messageBuilder(DeltaMovementSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(DeltaMovementSyncS2CPacket::new)
+                .encoder(DeltaMovementSyncS2CPacket::toBytes)
+                .consumerMainThread(DeltaMovementSyncS2CPacket::handle)
                 .add();
     }
 

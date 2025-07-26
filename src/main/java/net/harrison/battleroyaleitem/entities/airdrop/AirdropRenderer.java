@@ -20,7 +20,7 @@ public class AirdropRenderer extends EntityRenderer<AirdropEntity> {
 
     @Override
     public ResourceLocation getTextureLocation(AirdropEntity pEntity) {
-        return new ResourceLocation(Battleroyaleitem.MODID, "textures/entity/airdrop.png");
+        return ResourceLocation.fromNamespaceAndPath(Battleroyaleitem.MODID, "textures/entity/airdrop.png");
     }
 
     @Override

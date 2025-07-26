@@ -1,7 +1,7 @@
 package net.harrison.battleroyaleitem.items.rholditem;
 
-import net.harrison.battleroyaleitem.capabilities.armorplate.NumofArmorPlate;
-import net.harrison.battleroyaleitem.capabilities.armorplate.NumofArmorPlateProvider;
+import net.harrison.battleroyaleitem.capabilities.armorplate.ArmorPlate;
+import net.harrison.battleroyaleitem.capabilities.armorplate.ArmorPlateProvider;
 import net.harrison.battleroyaleitem.init.ModMessages;
 import net.harrison.battleroyaleitem.items.AbsRHoldItem;
 import net.harrison.battleroyaleitem.networking.s2cpacket.ArmorPlateSyncS2CPacket;
@@ -30,20 +30,20 @@ public class ArmorPlateItem extends AbsRHoldItem {
     @Override
     protected boolean conditionsMet(Player player, Level level) {
         AtomicBoolean met = new AtomicBoolean(true);
-        LazyOptional<NumofArmorPlate> armorCapability = player.getCapability(NumofArmorPlateProvider.NUMOF_ARMOR_PLATE_CAPABILITY);
+        LazyOptional<ArmorPlate> armorCapability = player.getCapability(ArmorPlateProvider.ARMOR_PLATE_CAPABILITY);
         armorCapability.ifPresent(numofArmorPlate -> {
-            int armorPlateCount = numofArmorPlate.getNumofArmorPlate();
+            int armorPlateCount = numofArmorPlate.getNumOfArmorPlate();
             float plateHP = numofArmorPlate.getHP();
-            met.set(armorPlateCount < NumofArmorPlate.MAX_ARMOR_PLATE || plateHP < NumofArmorPlate.MAX_HP_PER_ARMOR_PLATE);
+            met.set(armorPlateCount < numofArmorPlate.MAX_ARMOR_PLATE || plateHP < numofArmorPlate.MAX_HP_PER_ARMOR_PLATE);
         });
         return met.get();
     }
 
     @Override
     protected void applyItem(Player player, Level level) {
-        player.getCapability(NumofArmorPlateProvider.NUMOF_ARMOR_PLATE_CAPABILITY).ifPresent(numofArmorPlate -> {
+        player.getCapability(ArmorPlateProvider.ARMOR_PLATE_CAPABILITY).ifPresent(numofArmorPlate -> {
             numofArmorPlate.addArmorPlate(1);
-            ModMessages.sendToPlayer(new ArmorPlateSyncS2CPacket(numofArmorPlate.getNumofArmorPlate()), (ServerPlayer) player);
+            ModMessages.sendToPlayer(new ArmorPlateSyncS2CPacket(numofArmorPlate.getNumOfArmorPlate()), (ServerPlayer) player);
         });
     }
 

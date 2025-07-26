@@ -3,35 +3,35 @@ package net.harrison.battleroyaleitem.capabilities.armorplate;
 
 import net.minecraft.nbt.CompoundTag;
 
-public class NumofArmorPlate {
-    private int numofArmorPlate;
+public class ArmorPlate {
+    private int numOfArmorPlate;
     private float ARMOR_PLATE_HP;
-    public static final int MAX_ARMOR_PLATE = 3;
-    public static final float MAX_HP_PER_ARMOR_PLATE = 10;
+    public final int MAX_ARMOR_PLATE = 3;
+    public final float MAX_HP_PER_ARMOR_PLATE = 10;
 
-    public int getNumofArmorPlate() {
-        return numofArmorPlate;
+    public int getNumOfArmorPlate() {
+        return numOfArmorPlate;
     }
 
     public void addArmorPlate(int num) {
-        if (this.numofArmorPlate == MAX_ARMOR_PLATE){
+        if (this.numOfArmorPlate == MAX_ARMOR_PLATE){
             this.ARMOR_PLATE_HP = MAX_HP_PER_ARMOR_PLATE;
         }
-        this.numofArmorPlate = Math.min(this.numofArmorPlate + num, MAX_ARMOR_PLATE);
+        this.numOfArmorPlate = Math.min(this.numOfArmorPlate + num, MAX_ARMOR_PLATE);
 
     }
 
     private void subArmorPlate() {
-        this.numofArmorPlate = Math.max(this.numofArmorPlate - 1, 0);
+        this.numOfArmorPlate = Math.max(this.numOfArmorPlate - 1, 0);
     }
 
     public void subAllArmorPlate() {
-        this.numofArmorPlate = 0;
+        this.numOfArmorPlate = 0;
         this.ARMOR_PLATE_HP = 0;
     }
 
-    public void copyFrom(NumofArmorPlate source) {
-        this.numofArmorPlate = source.numofArmorPlate;
+    public void copyFrom(ArmorPlate source) {
+        this.numOfArmorPlate = source.numOfArmorPlate;
     }
 
     public void subHP(float sub) {
@@ -41,7 +41,7 @@ public class NumofArmorPlate {
             this.subArmorPlate();
             this.ARMOR_PLATE_HP = MAX_HP_PER_ARMOR_PLATE;
         }
-        if (excessiveDamage > 0 && this.numofArmorPlate > 0) {
+        if (excessiveDamage > 0 && this.numOfArmorPlate > 0) {
             subHP(excessiveDamage);
         }
     }
@@ -51,12 +51,12 @@ public class NumofArmorPlate {
     }
 
     public void saveNBTData(CompoundTag nbt) {
-        nbt.putInt("numofArmorPlate", this.numofArmorPlate);
+        nbt.putInt("numOfArmorPlate", this.numOfArmorPlate);
         nbt.putFloat("HP_PER_ARMOR_PLATE", this.ARMOR_PLATE_HP);
     }
 
     public void loadNBTData(CompoundTag nbt) {
-        this.numofArmorPlate = nbt.getInt("numofArmorPlate");
+        this.numOfArmorPlate = nbt.getInt("numOfArmorPlate");
         this.ARMOR_PLATE_HP = nbt.getInt("HP_PER_ARMOR_PLATE");
     }
 

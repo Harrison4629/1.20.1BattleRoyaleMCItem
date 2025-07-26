@@ -2,7 +2,7 @@ package net.harrison.battleroyaleitem.entities.liftdevice;
 
 import net.harrison.battleroyaleitem.events.LiftDeviceFallImmuneEvent;
 import net.harrison.battleroyaleitem.init.ModMessages;
-import net.harrison.battleroyaleitem.networking.s2cpacket.LiftDevicePacket;
+import net.harrison.battleroyaleitem.networking.s2cpacket.DeltaMovementSyncS2CPacket;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -65,7 +65,9 @@ public class LiftDeviceEntity extends Entity {
                     Vec3 speed = player.getDeltaMovement();
                     Vec3 delta = new Vec3(1.9 * speed.x, 1.2, 1.9 * speed.z);
                     player.setDeltaMovement(delta);
-                    ModMessages.sendToPlayer(new LiftDevicePacket(delta), player);
+                    ModMessages.sendToPlayer(new DeltaMovementSyncS2CPacket(delta), player);
+
+                    player.level().playSound(null, player.blockPosition(), SoundEvents.FIRECHARGE_USE, SoundSource.NEUTRAL,0.5F, 1.0F);
                     LiftDeviceFallImmuneEvent.setImmune(player.getUUID());
                 }
             }

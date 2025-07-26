@@ -17,7 +17,7 @@
   "item.battleroyaleitem.chameleon.tooltip": "融于环境，静如无声",
   "item.battleroyaleitem.chameleon.tooltip.use": "长按右键获得隐身8秒，受击后现形",
   "item.battleroyaleitem.chameleon.use_success": "你进入了隐匿状态，保持安静",
-  "item.battleroyaleitem.chameleon.use_short": "空气说：别抢我饭碗",
+  "item.battleroyaleitem.chameleon.use_short": "你的伪装时间太短",
   "item.battleroyaleitem.chameleon.effect_ended_by_hurt": "疼痛让你从潜行中现形",
   "item.battleroyaleitem.chameleon.effect_ended_by_time": "隐匿状态终止",
 
@@ -51,6 +51,8 @@
   "item.battleroyaleitem.armor_plate.tooltip.use": "长按装备，最多可装备三块。最后一块将抵御致命伤害",
   "item.battleroyaleitem.armor_plate.use_short": "未充分安装",
   "item.battleroyaleitem.armor_plate.use_fail": "护甲板已满，无需填充",
+
+  "effect.battleroyaleitem.chameleon_effect": "脆弱隐形",
 
   "container.airdrop": "空投箱",
 

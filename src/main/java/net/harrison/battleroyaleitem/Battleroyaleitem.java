@@ -26,6 +26,7 @@ public class Battleroyaleitem {
         ModItems.ITEMS.register(modEventBus);
         ModEntities.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
+        ModEffects.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 

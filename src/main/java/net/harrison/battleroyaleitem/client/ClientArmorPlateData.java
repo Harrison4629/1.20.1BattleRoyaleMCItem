@@ -4,7 +4,7 @@ public class ClientArmorPlateData {
     private static int numOfArmorPlate;
 
     public static void set(int num) {
-        ClientArmorPlateData.numOfArmorPlate = num;
+        numOfArmorPlate = num;
     }
 
     public static int getArmorNum() {

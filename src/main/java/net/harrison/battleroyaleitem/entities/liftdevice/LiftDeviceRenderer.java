@@ -39,6 +39,6 @@ public class LiftDeviceRenderer extends EntityRenderer<LiftDeviceEntity> {
 
     @Override
     public ResourceLocation getTextureLocation(LiftDeviceEntity entity) {
-        return new ResourceLocation(Battleroyaleitem.MODID, "textures/entity/liftdevice.png");
+        return ResourceLocation.fromNamespaceAndPath(Battleroyaleitem.MODID, "textures/entity/liftdevice.png");
     }
 }
