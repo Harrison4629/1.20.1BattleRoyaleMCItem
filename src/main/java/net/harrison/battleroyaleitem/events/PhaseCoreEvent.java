@@ -5,7 +5,7 @@ import net.harrison.battleroyaleitem.capabilities.phasecore.PhaseCore;
 import net.harrison.battleroyaleitem.capabilities.phasecore.PhaseCoreProvider;
 import net.harrison.battleroyaleitem.init.ModMessages;
 import net.harrison.battleroyaleitem.networking.s2cpacket.DeltaMovementSyncS2CPacket;
-import net.harrison.battleroyaleitem.particles.ParticleSummon;
+import net.harrison.battleroyaleitem.util.ParticleSummon;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;

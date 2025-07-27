@@ -1,4 +1,4 @@
-package net.harrison.battleroyaleitem.sounds;
+package net.harrison.battleroyaleitem.util;
 
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;

@@ -5,7 +5,7 @@ import net.harrison.battleroyaleitem.capabilities.armorplate.ArmorPlate;
 import net.harrison.battleroyaleitem.capabilities.armorplate.ArmorPlateProvider;
 import net.harrison.battleroyaleitem.init.ModMessages;
 import net.harrison.battleroyaleitem.networking.s2cpacket.ArmorPlateSyncS2CPacket;
-import net.harrison.battleroyaleitem.particles.ParticleSummon;
+import net.harrison.battleroyaleitem.util.ParticleSummon;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -20,7 +20,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Battleroyaleitem.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class ArmorPlateDamageReductionEvent {
+public class ArmorPlateEvent {
 
     @SubscribeEvent
     public static void onPlayerHurt(LivingHurtEvent event) {
@@ -97,7 +97,6 @@ public class ArmorPlateDamageReductionEvent {
 
         LazyOptional<ArmorPlate> armorCapability = player.getCapability(ArmorPlateProvider.ARMOR_PLATE_CAPABILITY);
         armorCapability.ifPresent(numofArmorPlate -> ModMessages.sendToPlayer(new ArmorPlateSyncS2CPacket(numofArmorPlate.getNumOfArmorPlate()), player));
-
-
     }
+
 }

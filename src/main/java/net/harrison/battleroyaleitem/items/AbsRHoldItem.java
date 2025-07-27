@@ -9,6 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -61,8 +62,9 @@ public abstract class AbsRHoldItem extends Item {
             if (conditionsMet(player, level)) {
                 if (!level.isClientSide) {
                     applyItem(player, level);
-                    ModMessages.sendToPlayer(new PlaySoundToClientS2CPacket(getFinishSound(), getVolume(),
-                            getPitch()), (ServerPlayer) player);
+                    player.playNotifySound(getFinishSound(), SoundSource.PLAYERS, getVolume(), getPitch());
+                    //ModMessages.sendToPlayer(new PlaySoundToClientS2CPacket(getFinishSound(), getVolume(),
+                    //        getPitch()), (ServerPlayer) player);
 
                     if (!player.isCreative()) {
                         stack.shrink(1);
@@ -75,8 +77,9 @@ public abstract class AbsRHoldItem extends Item {
             } else {
                 if (!level.isClientSide) {
                     applyItemFailed(player, level);
-                    ModMessages.sendToPlayer(new PlaySoundToClientS2CPacket(SoundEvents.VILLAGER_NO, 1.0F,
-                            1.0F), (ServerPlayer) player);
+                    player.playNotifySound(SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 1.0F, 1.0F);
+                    //ModMessages.sendToPlayer(new PlaySoundToClientS2CPacket(SoundEvents.VILLAGER_NO, 1.0F,
+                    //        1.0F), (ServerPlayer) player);
                     player.getCooldowns().addCooldown(this, cooldownTicks);
                 }
                 if (level.isClientSide) {
@@ -97,7 +100,7 @@ public abstract class AbsRHoldItem extends Item {
 
     protected abstract void applyItem(Player player, Level level);
 
-    protected void applyItemFailed(Player player, Level level) {
+    private void applyItemFailed(Player player, Level level) {
         player.displayClientMessage(Component.translatable(getUseFailTranslationKey())
                 .withStyle(ChatFormatting.RED), true);
     }

@@ -2,7 +2,7 @@ package net.harrison.battleroyaleitem.events;
 
 import net.harrison.battleroyaleitem.Battleroyaleitem;
 import net.harrison.battleroyaleitem.items.AbsRHoldItem;
-import net.harrison.battleroyaleitem.sounds.ItemUsingSoundInstance;
+import net.harrison.battleroyaleitem.util.ItemUsingSoundInstance;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
@@ -11,13 +11,13 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Mod.EventBusSubscriber(modid = Battleroyaleitem.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class RHoldItemUsingEvent {
-    private static final Map<UUID, ItemUsingSoundInstance> ACTIVE_SOUNDS = new HashMap<>();
+    private static final Map<UUID, ItemUsingSoundInstance> ACTIVE_SOUNDS = new ConcurrentHashMap<>();
 
     @SubscribeEvent
     public static void onItemUseStart(LivingEntityUseItemEvent.Start event) {
@@ -31,26 +31,34 @@ public class RHoldItemUsingEvent {
         }
     }
 
+    @SubscribeEvent
+    public static void onItemUseStop(LivingEntityUseItemEvent.Stop event) {
+        if (event.getEntity().level().isClientSide()) {
+            stopUsingSound(event.getEntity());
+        }
+    }
+
     private static void playUsingSound(LivingEntity entity, SoundEvent soundEvent, float volume, float pitch) {
         if (entity == null || soundEvent == null) return;
 
         UUID entityId = entity.getUUID();
-        // 停止该实体的任何现有声音
-        stopUsingSound(entity);
 
-        // 创建新的声音实例并开始播放
-        ItemUsingSoundInstance soundInstance = new ItemUsingSoundInstance(entity, soundEvent, volume, pitch);
-        ACTIVE_SOUNDS.put(entityId, soundInstance);
-        Minecraft.getInstance().getSoundManager().play(soundInstance);
+        ACTIVE_SOUNDS.compute(entityId, (uuid, existingSound) -> {
+            if (existingSound != null) {
+                existingSound.stopSound();
+            }
+            ItemUsingSoundInstance newSound = new ItemUsingSoundInstance(entity, soundEvent, volume, pitch);
+            Minecraft.getInstance().getSoundManager().play(newSound);
+            return newSound;
+        });
     }
 
     private static void stopUsingSound(LivingEntity entity) {
         if (entity == null) return;
         UUID entityId = entity.getUUID();
-        if (ACTIVE_SOUNDS.containsKey(entityId)) {
-            ItemUsingSoundInstance sound = ACTIVE_SOUNDS.get(entityId);
+        ACTIVE_SOUNDS.computeIfPresent(entityId, (uuid, sound) -> {
             sound.stopSound();
-            ACTIVE_SOUNDS.remove(entityId);
-        }
+            return null;
+        });
     }
 }
