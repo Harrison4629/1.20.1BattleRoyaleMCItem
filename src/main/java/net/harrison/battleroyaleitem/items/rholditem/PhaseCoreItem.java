@@ -33,10 +33,6 @@ public class PhaseCoreItem extends AbsRHoldItem {
                 phaseCore.activePhaseCore(player.getPosition(1.0F), player.getViewVector(1.0F));
             });
 
-
-            //PhaseData.DATA.put(player.getUUID(), new PhaseData(player.getPosition(1.0F),
-            //        player.getViewVector(1.0F), TRACE_BACK_TIME));
-
             player.displayClientMessage(
                     Component.translatable("item.battleroyaleitem.phase_core.use_success"),
                     true);

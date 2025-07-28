@@ -59,13 +59,19 @@ public abstract class AbsRHoldItem extends Item {
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
         if (entity instanceof Player player) {
+
+            if (!level.isClientSide) {
+
+
+
+
+
+            }
+
             if (conditionsMet(player, level)) {
                 if (!level.isClientSide) {
                     applyItem(player, level);
                     player.playNotifySound(getFinishSound(), SoundSource.PLAYERS, getVolume(), getPitch());
-                    //ModMessages.sendToPlayer(new PlaySoundToClientS2CPacket(getFinishSound(), getVolume(),
-                    //        getPitch()), (ServerPlayer) player);
-
                     if (!player.isCreative()) {
                         stack.shrink(1);
                     }
@@ -78,8 +84,6 @@ public abstract class AbsRHoldItem extends Item {
                 if (!level.isClientSide) {
                     applyItemFailed(player, level);
                     player.playNotifySound(SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 1.0F, 1.0F);
-                    //ModMessages.sendToPlayer(new PlaySoundToClientS2CPacket(SoundEvents.VILLAGER_NO, 1.0F,
-                    //        1.0F), (ServerPlayer) player);
                     player.getCooldowns().addCooldown(this, cooldownTicks);
                 }
                 if (level.isClientSide) {

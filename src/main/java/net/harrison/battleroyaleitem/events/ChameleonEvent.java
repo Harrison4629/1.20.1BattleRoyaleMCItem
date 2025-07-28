@@ -1,6 +1,7 @@
 package net.harrison.battleroyaleitem.events;
 
 import net.harrison.battleroyaleitem.Battleroyaleitem;
+import net.harrison.battleroyaleitem.events.costomEvents.ArmorPlateDamageEvent;
 import net.harrison.battleroyaleitem.init.ModEffects;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -32,5 +33,24 @@ public class ChameleonEvent {
                 }
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onArmorPlateDamage(ArmorPlateDamageEvent event) {
+
+        LivingEntity entity = event.getEntity();
+
+        if (!event.getEntity().level().isClientSide) {
+            if (entity.hasEffect(ModEffects.CHAMELEON_EFFECT.get())) {
+                entity.removeEffect(ModEffects.CHAMELEON_EFFECT.get());
+                entity.removeEffect(MobEffects.INVISIBILITY);
+                entity.level().playSound(null, entity.getOnPos(), SoundEvents.CAT_HISS, SoundSource.NEUTRAL, 1.0F, 1.2F);
+
+                if (entity instanceof ServerPlayer player) {
+                    player.displayClientMessage(Component.translatable("item.battleroyaleitem.chameleon.effect_ended_by_hurt").withStyle(ChatFormatting.RED), true);
+                }
+            }
+        }
+
     }
 }

@@ -1,6 +1,5 @@
 package net.harrison.battleroyaleitem.items.rholditem;
 
-import net.harrison.battleroyaleitem.capabilities.armorplate.ArmorPlate;
 import net.harrison.battleroyaleitem.capabilities.armorplate.ArmorPlateProvider;
 import net.harrison.battleroyaleitem.init.ModMessages;
 import net.harrison.battleroyaleitem.items.AbsRHoldItem;
@@ -14,9 +13,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.util.LazyOptional;
-
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ArmorPlateItem extends AbsRHoldItem {
     private static final int USE_DURATION = 20;
@@ -29,14 +25,10 @@ public class ArmorPlateItem extends AbsRHoldItem {
 
     @Override
     protected boolean conditionsMet(Player player, Level level) {
-        AtomicBoolean met = new AtomicBoolean(true);
-        LazyOptional<ArmorPlate> armorCapability = player.getCapability(ArmorPlateProvider.ARMOR_PLATE_CAPABILITY);
-        armorCapability.ifPresent(numofArmorPlate -> {
-            int armorPlateCount = numofArmorPlate.getNumOfArmorPlate();
-            float plateHP = numofArmorPlate.getHP();
-            met.set(armorPlateCount < numofArmorPlate.MAX_ARMOR_PLATE || plateHP < numofArmorPlate.MAX_HP_PER_ARMOR_PLATE);
-        });
-        return met.get();
+
+        return player.getCapability(ArmorPlateProvider.ARMOR_PLATE_CAPABILITY).map(
+                armorPlate -> armorPlate.getNumOfArmorPlate() < armorPlate.MAX_ARMOR_PLATE || armorPlate.getHP() < armorPlate.MAX_HP_PER_ARMOR_PLATE)
+                .orElse(false);
     }
 
     @Override

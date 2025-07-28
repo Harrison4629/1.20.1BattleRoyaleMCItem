@@ -3,6 +3,7 @@ package net.harrison.battleroyaleitem.events;
 import net.harrison.battleroyaleitem.Battleroyaleitem;
 import net.harrison.battleroyaleitem.capabilities.armorplate.ArmorPlate;
 import net.harrison.battleroyaleitem.capabilities.armorplate.ArmorPlateProvider;
+import net.harrison.battleroyaleitem.events.costomEvents.ArmorPlateDamageEvent;
 import net.harrison.battleroyaleitem.init.ModMessages;
 import net.harrison.battleroyaleitem.networking.s2cpacket.ArmorPlateSyncS2CPacket;
 import net.harrison.battleroyaleitem.util.ParticleSummon;
@@ -12,6 +13,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -39,16 +41,17 @@ public class ArmorPlateEvent {
             return;
         }
 
-        LazyOptional<ArmorPlate> armorCapability = player.getCapability(
-                ArmorPlateProvider.ARMOR_PLATE_CAPABILITY);
-
-        armorCapability.ifPresent(armorPlate -> {
+        player.getCapability(ArmorPlateProvider.ARMOR_PLATE_CAPABILITY).ifPresent(armorPlate -> {
             int originArmorPlateCount = armorPlate.getNumOfArmorPlate();
 
             if (originArmorPlateCount > 0) {
                 float damage = event.getAmount();
                 float allArmorPlateHP = armorPlate.getHP() + (armorPlate.getNumOfArmorPlate() - 1) * armorPlate.MAX_HP_PER_ARMOR_PLATE;
                 armorPlate.subHP(damage);
+
+
+                MinecraftForge.EVENT_BUS.post(new ArmorPlateDamageEvent(player));
+
                 event.setCanceled(true);
                 int decreasedArmorPlate = originArmorPlateCount - armorPlate.getNumOfArmorPlate();
                 for (int i = 0; i < decreasedArmorPlate ; i++) {

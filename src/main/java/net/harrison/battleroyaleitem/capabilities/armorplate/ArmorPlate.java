@@ -1,13 +1,15 @@
 package net.harrison.battleroyaleitem.capabilities.armorplate;
 
 
+import net.harrison.battleroyaleitem.events.costomEvents.ArmorPlateDamageEvent;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraftforge.common.MinecraftForge;
 
 public class ArmorPlate {
     private int numOfArmorPlate;
     private float ARMOR_PLATE_HP;
-    public final int MAX_ARMOR_PLATE = 3;
-    public final float MAX_HP_PER_ARMOR_PLATE = 10;
+    public static final int MAX_ARMOR_PLATE = 3;
+    public static final float MAX_HP_PER_ARMOR_PLATE = 10;
 
     public int getNumOfArmorPlate() {
         return numOfArmorPlate;

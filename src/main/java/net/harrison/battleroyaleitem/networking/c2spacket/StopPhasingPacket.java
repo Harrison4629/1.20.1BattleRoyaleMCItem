@@ -35,7 +35,7 @@ public class StopPhasingPacket {
             if (player != null) {
                 LazyOptional<PhaseCore> phaseCoreCapability = player.getCapability(PhaseCoreProvider.PHASE_CORE_CAPABILITY);
                 phaseCoreCapability.ifPresent(phaseCore -> {
-                    if (!phaseCore.timeIsUp()) {
+                    if (!phaseCore.isTimeUp()) {
                         double x = phaseCore.getIniPos().x;
                         double y = phaseCore.getIniPos().y;
                         double z = phaseCore.getIniPos().z;
