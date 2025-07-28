@@ -2,9 +2,12 @@ package net.harrison.battleroyaleitem;
 
 import net.harrison.battleroyaleitem.client.screens.ArmorPlateHudOverlay;
 import net.harrison.battleroyaleitem.init.*;
+import net.harrison.battleroyaleitem.particle.AirdropSmokeParticle;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -27,6 +30,7 @@ public class Battleroyaleitem {
         ModEntities.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
         ModEffects.register(modEventBus);
+        ModParticles.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
@@ -55,9 +59,9 @@ public class Battleroyaleitem {
             event.registerAboveAll("armor_plate", ArmorPlateHudOverlay.HUD_ARMOR_PLATE);
         }
 
-
         @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
+        public static void registerParticleProvider(RegisterParticleProvidersEvent event) {
+            event.registerSpriteSet(ModParticles.AIRDROP_SMOKE_PARTICLES.get(), AirdropSmokeParticle.Provider::new);
         }
     }
 }

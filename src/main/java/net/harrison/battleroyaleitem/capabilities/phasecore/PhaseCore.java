@@ -12,12 +12,11 @@ public class PhaseCore {
 
 
     public void reset() {
+        isActive = false;
         initialPosition = Vec3.ZERO;
         direction = Vec3.ZERO;
         ticksLeft = 0;
-        isActive = false;
     }
-
 
     public void activePhaseCore(Vec3 iniPos, Vec3 direction) {
         this.ticksLeft = PhaseCoreDuration;

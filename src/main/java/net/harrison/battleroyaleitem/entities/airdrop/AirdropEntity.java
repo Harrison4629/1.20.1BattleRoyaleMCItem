@@ -1,5 +1,6 @@
 package net.harrison.battleroyaleitem.entities.airdrop;
 
+import net.harrison.battleroyaleitem.init.ModParticles;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -24,17 +25,28 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class AirdropEntity extends Entity implements Container, MenuProvider{
+    private static final Logger log = LoggerFactory.getLogger(AirdropEntity.class);
     private final NonNullList<ItemStack> items = NonNullList.withSize(54, ItemStack.EMPTY);
 
-    private static final double FALL_SPEED = -0.05D; // 负值表示向下，可以调整这个值来控制速度
-    private static final double TERMINAL_VELOCITY = -0.15D; // 终端速度，防止无限加速
+    private static final double FALL_SPEED = -0.04D; // 负值表示向下，可以调整这个值来控制速度
+    private static final double TERMINAL_VELOCITY = -1; // 终端速度，防止无限加速
 
-    private final float AIRDROP_LUCKY_VALUE = 1.0F;
+    private static final float AIRDROP_LUCKY_VALUE = 1.0F;
+    private static final float Horizontal_Drag = 0.3F;
+
+    private static final int MaxSmokeDuration = 1000;
+
+    private int SmokeDuration;
+
+    private boolean wasOnGround = false;
 
     private ResourceLocation lootTable;
     private long lootTableSeed;
@@ -43,49 +55,72 @@ public class AirdropEntity extends Entity implements Container, MenuProvider{
         super(pEntityType, pLevel);
         this.blocksBuilding = true;
         this.noPhysics = false;
+        this.SmokeDuration = MaxSmokeDuration;
     }
 
     @Override
     public void tick() {
         super.tick();
 
-        if (this.level().isClientSide) {
-            this.level().addParticle(ParticleTypes.CLOUD, this.getX() + this.random.nextDouble() * 0.5D - 0.25D,
-                    this.getY() +2.5D + this.random.nextDouble() * 0.5D,
-                    this.getZ() + this.random.nextDouble() * 0.5D - 0.25D,
-                    0.0D, 0.01D, 0.0D);
-            this.level().addParticle(ParticleTypes.CLOUD, this.getX() + this.random.nextDouble() * 0.3D - 0.15D,
-                    this.getY() +3.0D + this.random.nextDouble() * 0.5D,
-                    this.getZ() + this.random.nextDouble() * 0.3D - 0.15D,
-                    0.0D, 0.05D, 0.0D);
-            this.level().addParticle(ParticleTypes.CLOUD, this.getX() + this.random.nextDouble() * 0.2D - 0.15D,
-                    this.getY() +3.7D + this.random.nextDouble() * 0.5D,
-                    this.getZ() + this.random.nextDouble() * 0.2D - 0.15D,
-                    0.0D, 0.1D, 0.0D);
 
-        }
+        AABB aabb = this.getBoundingBox().inflate(-1E-4).move(new Vec3(0, -1E-3, 0));
 
-        Vec3 fall = this.getDeltaMovement();
-        if (this.onGround()) {
-            fall = Vec3.ZERO;
-        } else {
-            fall = fall.add(0.0D, FALL_SPEED, 0.0D);
-            if (fall.y < TERMINAL_VELOCITY) {
-                fall = new Vec3(fall.x, TERMINAL_VELOCITY, fall.z);
+        boolean isOnGround = !this.level().noCollision(this, aabb);
+
+        Vec3 iniSpeed = this.getDeltaMovement();
+
+        if (isOnGround) {
+            this.setDeltaMovement(Horizontal_Drag * iniSpeed.x, 0.7 * iniSpeed.y, Horizontal_Drag * iniSpeed.z);
+
+            if (SmokeDuration > 0) {
+                if (this.level().isClientSide) {
+
+                    if (this.tickCount %2 == 0) {
+
+                        for (int i = 0; i < 3 ; i++) {
+
+                            double spawnX = this.getX() + (this.random.nextDouble() - 0.5D) * 0.6D;
+                            double spawnY = this.getY() + 2.5D;
+                            double spawnZ = this.getZ() + (this.random.nextDouble() - 0.5D) * 0.6D;
+
+                            double speedX = (this.random.nextDouble() - 0.5D) * 0.02D;
+                            double speedY = 0.2D + (this.random.nextDouble() * 0.04D);
+                            double speedZ = (this.random.nextDouble() - 0.5D) * 0.02D;
+
+                            this.level().addParticle(ModParticles.AIRDROP_SMOKE_PARTICLES.get(),
+                                    true,
+                                    spawnX,
+                                    spawnY,
+                                    spawnZ,
+                                    speedX,
+                                    speedY,
+                                    speedZ
+                            );
+                        }
+                    }
+                }
+                SmokeDuration--;
             }
+        } else {
+            Vec3 newSpeed;
 
-            double horizontalDrag = 0.7; // 水平阻力系数，数值越大阻力越小
-            fall = new Vec3(
-                    fall.x * horizontalDrag,
-                    fall.y,
-                    fall.z * horizontalDrag);
+            Vec3 delta = iniSpeed.add(0, FALL_SPEED, 0);
 
-            if (Math.abs(fall.x) < 0.003) fall = new Vec3(0, fall.y, fall.z);
-            if (Math.abs(fall.z) < 0.003) fall = new Vec3(fall.x, fall.y, 0);
+            if (delta.y > TERMINAL_VELOCITY) {
+                newSpeed = new Vec3(delta.x, delta.y, delta.z);
+            } else {
+                newSpeed = new Vec3(delta.x, TERMINAL_VELOCITY, delta.z);
+            }
+            this.setDeltaMovement(newSpeed);
         }
 
-        this.setDeltaMovement(fall);
+        if (isOnGround && !this.wasOnGround) {
+            this.level().playSound(null, this.blockPosition(), SoundEvents.WOOD_PLACE, SoundSource.NEUTRAL, 3.0F, 2.0F);
+        }
+
         this.move(MoverType.SELF, this.getDeltaMovement());
+
+        this.wasOnGround = isOnGround;
 
     }
 
@@ -142,7 +177,6 @@ public class AirdropEntity extends Entity implements Container, MenuProvider{
 
     @Override
     protected void defineSynchedData() {
-
     }
 
     @Override
