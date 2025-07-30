@@ -31,20 +31,21 @@ public class ArmorPlateAnimationEvent {
                 MultiBufferSource buffer = event.getMultiBufferSource();
                 int combinedLight = event.getPackedLight();
                 ItemStack itemStack = event.getItemStack();
+                float partialTicks = event.getPartialTick();
 
-                renderArmorPlateAnimation(player, poseStack, buffer, combinedLight, itemStack);
+                renderArmorPlateAnimation(player, poseStack, buffer, combinedLight, itemStack, partialTicks);
             }
         }
     }
 
-    private static void renderArmorPlateAnimation(LocalPlayer player, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, ItemStack itemStack) {
+    private static void renderArmorPlateAnimation(LocalPlayer player, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, ItemStack itemStack, float partialTicks) {
 
         poseStack.pushPose();
 
         poseStack.translate(0.5F, -0.52F, -0.72F);
 
         float useDuration = player.getUseItem().getUseDuration();
-        float remainingTicks = player.getUseItemRemainingTicks();
+        float remainingTicks = player.getUseItemRemainingTicks() - partialTicks;
 
         float progress = 1.0F - (remainingTicks / useDuration);
 
@@ -55,25 +56,20 @@ public class ArmorPlateAnimationEvent {
 
         if (progress < 0.4f) {
             float liftProgress = progress / 0.4f;
-            float mth = Mth.sin((float) (liftProgress * Math.PI/ 2.0));
-            poseStack.translate(mth * deltaX, mth * deltaY, mth * deltaZ);
-            poseStack.mulPose(Axis.YP.rotationDegrees(mth * 90F));
-            poseStack.mulPose(Axis.ZP.rotationDegrees(-mth * 70F));
-            poseStack.mulPose(Axis.XP.rotationDegrees(mth * 20F));
-        } else if (progress < 0.5F) {
-            poseStack.translate(deltaX,deltaY, deltaZ);
-            poseStack.mulPose(Axis.YP.rotationDegrees(90F));
-            poseStack.mulPose(Axis.ZP.rotationDegrees(-70F));
-            poseStack.mulPose(Axis.XP.rotationDegrees(20F));
-
+            float easedT = Mth.sin((float) (liftProgress * Math.PI/ 2.0));
+            poseStack.translate(easedT * deltaX, easedT * deltaY, easedT * deltaZ);
+            poseStack.mulPose(Axis.YP.rotationDegrees(easedT * 90F));
+            poseStack.mulPose(Axis.ZP.rotationDegrees(-easedT * 70F));
+            poseStack.mulPose(Axis.XP.rotationDegrees(easedT * 70F));
         } else {
             poseStack.translate(deltaX,deltaY, deltaZ);
             poseStack.mulPose(Axis.YP.rotationDegrees(90F));
             poseStack.mulPose(Axis.ZP.rotationDegrees(-70F));
-            poseStack.mulPose(Axis.XP.rotationDegrees(20F));
+            poseStack.mulPose(Axis.XP.rotationDegrees(70F));
 
-            float backProgress = (progress - 0.5F) / 0.5F;
+            float backProgress = (progress - 0.4F) / 0.6F;
             poseStack.translate(0, -Mth.sin((float) (backProgress * Math.PI/ 2.0)), 0);
+            //poseStack.translate(0, -backProgress, 0);
         }
 
 

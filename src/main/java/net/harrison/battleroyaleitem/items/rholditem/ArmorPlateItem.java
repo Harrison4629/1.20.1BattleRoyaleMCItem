@@ -1,5 +1,6 @@
 package net.harrison.battleroyaleitem.items.rholditem;
 
+import net.harrison.battleroyaleitem.capabilities.armorplate.ArmorPlate;
 import net.harrison.battleroyaleitem.capabilities.armorplate.ArmorPlateProvider;
 import net.harrison.battleroyaleitem.init.ModMessages;
 import net.harrison.battleroyaleitem.items.AbsRHoldItem;
@@ -27,7 +28,7 @@ public class ArmorPlateItem extends AbsRHoldItem {
     protected boolean conditionsMet(Player player, Level level) {
 
         return player.getCapability(ArmorPlateProvider.ARMOR_PLATE_CAPABILITY).map(
-                armorPlate -> armorPlate.getNumOfArmorPlate() < armorPlate.MAX_ARMOR_PLATE || armorPlate.getHP() < armorPlate.MAX_HP_PER_ARMOR_PLATE)
+                armorPlate -> armorPlate.getNumOfArmorPlate() < ArmorPlate.MAX_ARMOR_PLATE || armorPlate.getHP() < ArmorPlate.MAX_HP_PER_ARMOR_PLATE)
                 .orElse(false);
     }
 
@@ -61,7 +62,7 @@ public class ArmorPlateItem extends AbsRHoldItem {
 
     @Override
     public SoundEvent getUsingSound() {
-        return SoundEvents.STONE_PLACE;
+        return SoundEvents.ARMOR_EQUIP_CHAIN;
     }
 
     @Override
@@ -71,7 +72,7 @@ public class ArmorPlateItem extends AbsRHoldItem {
 
     @Override
     public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.BRUSH;
+        return UseAnim.NONE;
     }
 
     @Override
@@ -81,6 +82,11 @@ public class ArmorPlateItem extends AbsRHoldItem {
 
     @Override
     public float getVolume() {
+        return 1.5F;
+    }
+
+    @Override
+    public float getPitch() {
         return 1.5F;
     }
 }
