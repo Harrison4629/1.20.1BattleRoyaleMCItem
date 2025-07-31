@@ -1,8 +1,10 @@
-package net.harrison.battleroyaleitem.entities.airdrop;
+package net.harrison.battleroyaleitem.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.harrison.battleroyaleitem.Battleroyaleitem;
+import net.harrison.battleroyaleitem.entities.AirdropEntity;
+import net.harrison.battleroyaleitem.model.AirdropModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

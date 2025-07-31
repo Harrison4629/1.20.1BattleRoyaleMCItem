@@ -67,12 +67,12 @@ public class ChameleonItem extends AbsRHoldItem {
     }
 
     @Override
-    protected SoundEvent getFinishSound() {
+    protected SoundEvent getSuccessSound() {
         return SoundEvents.PHANTOM_FLAP;
     }
 
     @Override
-    protected ParticleOptions getParticleType() {
+    protected ParticleOptions getFailureParticleType() {
         return ParticleTypes.SNOWFLAKE;
     }
 

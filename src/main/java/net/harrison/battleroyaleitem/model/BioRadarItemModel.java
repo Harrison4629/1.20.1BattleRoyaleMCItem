@@ -1,6 +1,7 @@
-package net.harrison.battleroyaleitem.items.rholditem.bioRadar;
+package net.harrison.battleroyaleitem.model;
 
 import net.harrison.battleroyaleitem.Battleroyaleitem;
+import net.harrison.battleroyaleitem.items.rholditem.BioRadarItem;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 

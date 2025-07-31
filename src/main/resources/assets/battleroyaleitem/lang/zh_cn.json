@@ -29,9 +29,8 @@
 
   "item.battleroyaleitem.phase_core": "位移魔核",
   "item.battleroyaleitem.phase_core.tooltip": "操控空间扭曲的禁术结晶",
-  "item.battleroyaleitem.phase_core.tooltip.use": "长按右键向目光所视方向位移5秒或按R立即返回",
+  "item.battleroyaleitem.phase_core.tooltip.use": "右键向目光所视方向位移5秒或按R立即返回",
   "item.battleroyaleitem.phase_core.use_success": "空间扭曲启动，你向前跃迁！",
-  "item.battleroyaleitem.phase_core.use_short": "原地摇晃了一下，看起来很努力",
   "item.battleroyaleitem.phase_core.trace_back": "你感到一股力量拉扯着你回到起点",
 
   "item.battleroyaleitem.bio_radar": "生命雷达",

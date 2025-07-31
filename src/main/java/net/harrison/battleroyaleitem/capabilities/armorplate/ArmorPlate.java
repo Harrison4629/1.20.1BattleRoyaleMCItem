@@ -1,9 +1,7 @@
 package net.harrison.battleroyaleitem.capabilities.armorplate;
 
 
-import net.harrison.battleroyaleitem.events.costomEvents.ArmorPlateDamageEvent;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.MinecraftForge;
 
 public class ArmorPlate {
     private int numOfArmorPlate;
@@ -32,9 +30,9 @@ public class ArmorPlate {
         this.ARMOR_PLATE_HP = 0;
     }
 
-    public void copyFrom(ArmorPlate source) {
-        this.numOfArmorPlate = source.numOfArmorPlate;
-    }
+    //public void copyFrom(ArmorPlate source) {
+    //    this.numOfArmorPlate = source.numOfArmorPlate;
+    //}
 
     public void subHP(float sub) {
         float excessiveDamage =  sub - this.ARMOR_PLATE_HP;

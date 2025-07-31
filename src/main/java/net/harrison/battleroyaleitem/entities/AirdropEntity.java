@@ -1,8 +1,7 @@
-package net.harrison.battleroyaleitem.entities.airdrop;
+package net.harrison.battleroyaleitem.entities;
 
 import net.harrison.battleroyaleitem.init.ModParticles;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;

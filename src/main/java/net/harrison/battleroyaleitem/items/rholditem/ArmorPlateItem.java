@@ -16,7 +16,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
 public class ArmorPlateItem extends AbsRHoldItem {
-    private static final int USE_DURATION = 20;
+    private static final int USE_DURATION = 30;
     private static final int COOLDOWN_TICKS = 10;
 
 
@@ -66,7 +66,7 @@ public class ArmorPlateItem extends AbsRHoldItem {
     }
 
     @Override
-    protected SoundEvent getFinishSound() {
+    protected SoundEvent getSuccessSound() {
         return SoundEvents.ARMOR_EQUIP_LEATHER;
     }
 
@@ -76,7 +76,7 @@ public class ArmorPlateItem extends AbsRHoldItem {
     }
 
     @Override
-    protected ParticleOptions getParticleType() {
+    protected ParticleOptions getFailureParticleType() {
         return ParticleTypes.ELECTRIC_SPARK;
     }
 

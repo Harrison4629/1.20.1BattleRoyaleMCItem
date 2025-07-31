@@ -2,8 +2,9 @@ package net.harrison.battleroyaleitem.init;
 
 import net.harrison.battleroyaleitem.Battleroyaleitem;
 import net.harrison.battleroyaleitem.items.placeitem.LiftDeviceItem;
+import net.harrison.battleroyaleitem.items.rclickitem.PhaseCoreItem;
 import net.harrison.battleroyaleitem.items.rholditem.*;
-import net.harrison.battleroyaleitem.items.rholditem.bioRadar.BioRadarItem;
+import net.harrison.battleroyaleitem.items.rholditem.BioRadarItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -25,7 +26,7 @@ public class ModItems {
     public static final RegistryObject<Item> BIO_RADAR = ITEMS.register("bio_radar",
             () -> new BioRadarItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> LIFT_DEVICE = ITEMS.register("lift_device",
-            () -> new LiftDeviceItem(ModEntities.LIFTDEVICE, new Item.Properties().stacksTo(2)));
+            () -> new LiftDeviceItem(ModEntities.LIFT_DEVICE, new Item.Properties().stacksTo(2)));
     public static final RegistryObject<Item> ARMOR_PLATE = ITEMS.register("armor_plate",
             () -> new ArmorPlateItem(new Item.Properties().stacksTo(3)));
 

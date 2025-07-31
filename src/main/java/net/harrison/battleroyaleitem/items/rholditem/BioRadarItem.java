@@ -1,8 +1,9 @@
-package net.harrison.battleroyaleitem.items.rholditem.bioRadar;
+package net.harrison.battleroyaleitem.items.rholditem;
 
 import net.harrison.basicdevtool.init.ModMessages;
 import net.harrison.basicdevtool.networking.s2cpacket.PlaySoundToClientS2CPacket;
 import net.harrison.battleroyaleitem.items.AbsRHoldItem;
+import net.harrison.battleroyaleitem.renderer.BioRadarItemRenderer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.particles.ParticleOptions;
@@ -22,13 +23,12 @@ import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.*;
 import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.RenderUtils;
 
 import java.util.List;
 import java.util.function.Consumer;
 
 public class BioRadarItem extends AbsRHoldItem implements GeoItem {
-    private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
+    private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
     public static final int USE_DURATION = 60;
     public static final int COOLDOWN_TICKS = 200;
     public static final int RANGE = 80;
@@ -79,12 +79,12 @@ public class BioRadarItem extends AbsRHoldItem implements GeoItem {
     }
 
     @Override
-    protected ParticleOptions getParticleType() {
+    protected ParticleOptions getFailureParticleType() {
         return ParticleTypes.SOUL;
     }
 
     @Override
-    protected SoundEvent getFinishSound() {
+    protected SoundEvent getSuccessSound() {
         return SoundEvents.ENCHANTMENT_TABLE_USE;
     }
 
@@ -115,8 +115,7 @@ public class BioRadarItem extends AbsRHoldItem implements GeoItem {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
-
+        controllerRegistrar.add(new AnimationController<>(this, "detect", 0, this::predicate));
     }
 
     @Override
@@ -124,16 +123,12 @@ public class BioRadarItem extends AbsRHoldItem implements GeoItem {
         return this.cache;
     }
 
-    private PlayState predicate(AnimationState animationState) {
+    private PlayState predicate(AnimationState<BioRadarItem> animationState) {
         animationState.getController().setAnimation(RawAnimation.begin().then("animation.bio_radar.detect",
                 Animation.LoopType.LOOP));
         return PlayState.CONTINUE;
     }
 
-    @Override
-    public double getTick(Object itemStack) {
-        return RenderUtils.getCurrentTick();
-    }
 
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
@@ -147,5 +142,10 @@ public class BioRadarItem extends AbsRHoldItem implements GeoItem {
                 return this.renderer;
             }
         });
+    }
+
+    @Override
+    public boolean isPerspectiveAware() {
+        return true;
     }
 }

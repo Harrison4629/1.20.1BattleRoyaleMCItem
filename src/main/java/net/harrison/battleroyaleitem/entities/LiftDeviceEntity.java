@@ -1,4 +1,4 @@
-package net.harrison.battleroyaleitem.entities.liftdevice;
+package net.harrison.battleroyaleitem.entities;
 
 import net.harrison.battleroyaleitem.events.LiftDeviceFallImmuneEvent;
 import net.harrison.battleroyaleitem.init.ModMessages;

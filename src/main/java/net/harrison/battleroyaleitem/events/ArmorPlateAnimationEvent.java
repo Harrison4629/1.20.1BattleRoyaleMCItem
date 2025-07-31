@@ -46,32 +46,34 @@ public class ArmorPlateAnimationEvent {
 
         float useDuration = player.getUseItem().getUseDuration();
         float remainingTicks = player.getUseItemRemainingTicks() - partialTicks;
-
         float progress = 1.0F - (remainingTicks / useDuration);
 
-        float deltaY = -0.1F;
-        float deltaX = -0.4F;
-        float deltaZ = -0.3F;
-
+        float deltaX = -0.5F;
+        float deltaY = -0.2F;
+        float deltaZ = -0.2F;
 
         if (progress < 0.4f) {
             float liftProgress = progress / 0.4f;
             float easedT = Mth.sin((float) (liftProgress * Math.PI/ 2.0));
             poseStack.translate(easedT * deltaX, easedT * deltaY, easedT * deltaZ);
             poseStack.mulPose(Axis.YP.rotationDegrees(easedT * 90F));
-            poseStack.mulPose(Axis.ZP.rotationDegrees(-easedT * 70F));
-            poseStack.mulPose(Axis.XP.rotationDegrees(easedT * 70F));
+        } else if (progress < 0.5f) {
+            poseStack.translate(deltaX,deltaY, deltaZ);
+            poseStack.mulPose(Axis.YP.rotationDegrees(90F));
+
+
         } else {
             poseStack.translate(deltaX,deltaY, deltaZ);
             poseStack.mulPose(Axis.YP.rotationDegrees(90F));
-            poseStack.mulPose(Axis.ZP.rotationDegrees(-70F));
-            poseStack.mulPose(Axis.XP.rotationDegrees(70F));
 
-            float backProgress = (progress - 0.4F) / 0.6F;
+            float backProgress = (progress - 0.5F) / 0.5F;
             poseStack.translate(0, -Mth.sin((float) (backProgress * Math.PI/ 2.0)), 0);
-            //poseStack.translate(0, -backProgress, 0);
         }
 
+        poseStack.mulPose(Axis.XP.rotationDegrees((float) (Math.random() - 0.5) * 1.5F));
+        poseStack.mulPose(Axis.YP.rotationDegrees((float) (Math.random() - 0.5) * 1.5F));
+        poseStack.mulPose(Axis.ZP.rotationDegrees((float) (Math.random() - 0.5) * 1.5F));
+        //轻微扰动，视觉效果
 
         Minecraft.getInstance().getItemRenderer().renderStatic(
                 itemStack,

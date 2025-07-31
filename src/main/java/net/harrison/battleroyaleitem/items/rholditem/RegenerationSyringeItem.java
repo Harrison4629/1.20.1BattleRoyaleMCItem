@@ -55,7 +55,7 @@ public class RegenerationSyringeItem extends AbsRHoldItem {
     }
 
     @Override
-    protected SoundEvent getFinishSound() {
+    protected SoundEvent getSuccessSound() {
         return SoundEvents.PLAYER_HURT_SWEET_BERRY_BUSH;
     }
 
@@ -70,7 +70,7 @@ public class RegenerationSyringeItem extends AbsRHoldItem {
     }
 
     @Override
-    protected ParticleOptions getParticleType() {
+    protected ParticleOptions getFailureParticleType() {
         return ParticleTypes.EFFECT;
     }
 }

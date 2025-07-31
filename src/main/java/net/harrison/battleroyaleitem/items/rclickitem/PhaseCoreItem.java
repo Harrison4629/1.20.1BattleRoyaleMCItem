@@ -1,25 +1,21 @@
-package net.harrison.battleroyaleitem.items.rholditem;
+package net.harrison.battleroyaleitem.items.rclickitem;
 
 import net.harrison.battleroyaleitem.capabilities.phasecore.PhaseCoreProvider;
-import net.harrison.battleroyaleitem.items.AbsRHoldItem;
+import net.harrison.battleroyaleitem.items.AbsRClickItem;
 import net.harrison.battleroyaleitem.util.ParticleSummon;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
-public class PhaseCoreItem extends AbsRHoldItem {
-    private static final int USE_DURATION = 10;
+public class PhaseCoreItem extends AbsRClickItem {
     private static final int COOLDOWN_TICKS = 100;
 
 
     public PhaseCoreItem(Properties properties) {
-        super(properties, USE_DURATION, COOLDOWN_TICKS);
+        super(properties, COOLDOWN_TICKS);
     }
 
     @Override
@@ -41,11 +37,6 @@ public class PhaseCoreItem extends AbsRHoldItem {
     }
 
     @Override
-    protected String getUseTooShortTranslationKey() {
-        return "item.battleroyaleitem.phase_core.use_short";
-    }
-
-    @Override
     protected String getTooltipTranslationKey() {
         return "item.battleroyaleitem.phase_core.tooltip";
     }
@@ -56,28 +47,7 @@ public class PhaseCoreItem extends AbsRHoldItem {
     }
 
     @Override
-    protected String getUseFailTranslationKey() {
-        return "";
-    }
-
-    @Override
-    protected SoundEvent getFinishSound() {
-        return SoundEvents.ENDERMAN_TELEPORT;
-    }
-
-    @Override
-    public SoundEvent getUsingSound() {
-        return SoundEvents.PORTAL_AMBIENT;
-    }
-
-    @Override
-    public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.CROSSBOW;
-    }
-
-
-    @Override
-    protected void spawnParticles(Player player, Level level) {
+    protected void spawnSuccessParticles(Player player, Level level) {
         ParticleSummon.spawnParticleCircle(level, player.getPosition(1.0F), 1, ParticleTypes.PORTAL, 30);
     }
 }

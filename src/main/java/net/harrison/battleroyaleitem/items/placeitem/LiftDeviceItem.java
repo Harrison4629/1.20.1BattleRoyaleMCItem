@@ -1,6 +1,6 @@
 package net.harrison.battleroyaleitem.items.placeitem;
 
-import net.harrison.battleroyaleitem.entities.liftdevice.LiftDeviceEntity;
+import net.harrison.battleroyaleitem.entities.LiftDeviceEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;

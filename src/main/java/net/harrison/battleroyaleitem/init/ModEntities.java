@@ -1,12 +1,12 @@
 package net.harrison.battleroyaleitem.init;
 
 import net.harrison.battleroyaleitem.Battleroyaleitem;
-import net.harrison.battleroyaleitem.entities.airdrop.AirdropEntity;
-import net.harrison.battleroyaleitem.entities.airdrop.AirdropModel;
-import net.harrison.battleroyaleitem.entities.airdrop.AirdropRenderer;
-import net.harrison.battleroyaleitem.entities.liftdevice.LiftDeviceEntity;
-import net.harrison.battleroyaleitem.entities.liftdevice.LiftDeviceModel;
-import net.harrison.battleroyaleitem.entities.liftdevice.LiftDeviceRenderer;
+import net.harrison.battleroyaleitem.entities.AirdropEntity;
+import net.harrison.battleroyaleitem.model.AirdropModel;
+import net.harrison.battleroyaleitem.renderer.AirdropRenderer;
+import net.harrison.battleroyaleitem.entities.LiftDeviceEntity;
+import net.harrison.battleroyaleitem.model.LiftDeviceModel;
+import net.harrison.battleroyaleitem.renderer.LiftDeviceRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -23,7 +23,7 @@ public class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Battleroyaleitem.MODID);
 
-    public static final RegistryObject<EntityType<LiftDeviceEntity>> LIFTDEVICE = ENTITY_TYPES.register("liftdevice",
+    public static final RegistryObject<EntityType<LiftDeviceEntity>> LIFT_DEVICE = ENTITY_TYPES.register("liftdevice",
             () -> EntityType.Builder.of(LiftDeviceEntity::new, MobCategory.MISC)
                     .sized(1.0F, 0.2F)
                     .clientTrackingRange(20)
@@ -48,7 +48,7 @@ public class ModEntities {
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(AIRDROP.get(), AirdropRenderer::new);
-        event.registerEntityRenderer(LIFTDEVICE.get(), LiftDeviceRenderer::new);
+        event.registerEntityRenderer(LIFT_DEVICE.get(), LiftDeviceRenderer::new);
     }
 
     @SubscribeEvent
