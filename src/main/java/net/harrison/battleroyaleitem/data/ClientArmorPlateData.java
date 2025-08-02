@@ -1,4 +1,4 @@
-package net.harrison.battleroyaleitem.client;
+package net.harrison.battleroyaleitem.data;
 
 public class ClientArmorPlateData {
     private static int numOfArmorPlate;

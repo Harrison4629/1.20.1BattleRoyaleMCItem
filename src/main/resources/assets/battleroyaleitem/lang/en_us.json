@@ -51,9 +51,12 @@
   "item.battleroyaleitem.armor_plate.use_short": "",
   "item.battleroyaleitem.armor_plate.use_fail": "",
 
+  "block.battleroyaleitem.loot_chest": "",
+
   "effect.battleroyaleitem.chameleon_effect": "",
 
   "container.airdrop": "",
+  "container.loot_chest": "",
 
   "key.category.battleroyaleitem": "",
   "key.battleroyaleitem.stop_phasing": "",

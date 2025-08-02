@@ -26,6 +26,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.BIO_RADAR.get());
                         output.accept(ModItems.LIFT_DEVICE.get());
                         output.accept(ModItems.ARMOR_PLATE.get());
+                        output.accept(ModBlocks.LOOT_CHEST.get());
                     })
                     .build());
 

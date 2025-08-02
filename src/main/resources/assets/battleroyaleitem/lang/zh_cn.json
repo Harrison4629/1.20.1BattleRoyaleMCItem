@@ -51,9 +51,12 @@
   "item.battleroyaleitem.armor_plate.use_short": "未充分安装",
   "item.battleroyaleitem.armor_plate.use_fail": "护甲板已满，无需填充",
 
+  "block.battleroyaleitem.loot_chest": "战利品箱",
+
   "effect.battleroyaleitem.chameleon_effect": "脆弱隐形",
 
   "container.airdrop": "空投箱",
+  "container.loot_chest": "战利品箱",
 
   "key.category.battleroyaleitem": "大逃杀模组按键",
   "key.battleroyaleitem.stop_phasing": "位移魔核回溯原位",

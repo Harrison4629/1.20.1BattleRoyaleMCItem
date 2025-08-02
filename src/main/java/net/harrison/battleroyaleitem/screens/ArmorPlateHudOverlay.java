@@ -1,8 +1,8 @@
-package net.harrison.battleroyaleitem.client.screens;
+package net.harrison.battleroyaleitem.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.harrison.battleroyaleitem.Battleroyaleitem;
-import net.harrison.battleroyaleitem.client.ClientArmorPlateData;
+import net.harrison.battleroyaleitem.data.ClientArmorPlateData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;

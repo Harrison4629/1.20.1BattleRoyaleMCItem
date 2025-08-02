@@ -1,0 +1,14 @@
+{
+  "close_loot_chest": {
+    "subtitle": "sounds.battleroyaleitem.close_loot_chest",
+    "sounds": [
+      "battleroyaleitem:close_loot_chest"
+    ]
+  },
+  "open_loot_chest": {
+    "subtitle": "sounds.battleroyaleitem.open_loot_chest",
+    "sounds": [
+      "battleroyaleitem:open_loot_chest"
+    ]
+  }
+}

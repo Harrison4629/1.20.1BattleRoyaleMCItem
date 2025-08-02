@@ -1,14 +1,15 @@
 package net.harrison.battleroyaleitem;
 
-import net.harrison.battleroyaleitem.client.screens.ArmorPlateHudOverlay;
+import net.harrison.battleroyaleitem.screens.ArmorPlateHudOverlay;
 import net.harrison.battleroyaleitem.init.*;
 import net.harrison.battleroyaleitem.particle.AirdropSmokeParticle;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -24,11 +25,14 @@ public class Battleroyaleitem {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
 
-        ModItems.ITEMS.register(modEventBus);
+        ModSounds.register(modEventBus);
+        ModBlocks.register(modEventBus);
+        ModItems.register(modEventBus);
         ModEntities.register(modEventBus);
         ModCreativeModeTabs.register(modEventBus);
         ModEffects.register(modEventBus);
         ModParticles.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
@@ -38,10 +42,6 @@ public class Battleroyaleitem {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(ModMessages::register);
-    }
-
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
     }
 
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)

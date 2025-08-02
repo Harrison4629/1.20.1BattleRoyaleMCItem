@@ -27,12 +27,9 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 public class AirdropEntity extends Entity implements Container, MenuProvider{
-    private static final Logger log = LoggerFactory.getLogger(AirdropEntity.class);
     private final NonNullList<ItemStack> items = NonNullList.withSize(54, ItemStack.EMPTY);
 
     private static final double FALL_SPEED = -0.04D; // 负值表示向下，可以调整这个值来控制速度
@@ -153,6 +150,7 @@ public class AirdropEntity extends Entity implements Container, MenuProvider{
     public void setLootTable(ResourceLocation lootTable, long lootTableSeed) {
         this.lootTable = lootTable;
         this.lootTableSeed = lootTableSeed;
+        this.setChanged();
     }
 
     public void unpackLootTable() {
@@ -205,11 +203,12 @@ public class AirdropEntity extends Entity implements Container, MenuProvider{
     @Override
     protected void readAdditionalSaveData(CompoundTag compound) {
         if (compound.contains("LootTable", 8)) {
-            this.lootTable = new ResourceLocation(compound.getString("LootTable"));
+            this.lootTable = ResourceLocation.parse(compound.getString("LootTable"));
             this.lootTableSeed = compound.getLong("LootTableSeed");
         } else {
             ContainerHelper.loadAllItems(compound, this.items);
         }
+        this.SmokeDuration = compound.getInt("smokeDuration");
     }
 
     @Override
@@ -222,7 +221,7 @@ public class AirdropEntity extends Entity implements Container, MenuProvider{
         } else {
             ContainerHelper.saveAllItems(compound, this.items);
         }
-
+        compound.putInt("smokeDuration", this.SmokeDuration);
     }
 
     @Override
@@ -255,7 +254,6 @@ public class AirdropEntity extends Entity implements Container, MenuProvider{
         if (pSlot >= 0 && pSlot < this.items.size()) {
             this.items.set(pSlot, pStack);
         }
-
     }
 
     @Override

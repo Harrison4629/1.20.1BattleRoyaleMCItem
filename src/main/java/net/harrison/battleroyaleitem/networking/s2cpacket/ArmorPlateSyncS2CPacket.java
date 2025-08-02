@@ -1,6 +1,6 @@
 package net.harrison.battleroyaleitem.networking.s2cpacket;
 
-import net.harrison.battleroyaleitem.client.ClientArmorPlateData;
+import net.harrison.battleroyaleitem.data.ClientArmorPlateData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
