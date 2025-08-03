@@ -155,6 +155,7 @@ public class AirdropEntity extends Entity implements Container, MenuProvider{
 
     public void unpackLootTable() {
         if (this.lootTable != null && this.level().getServer() != null) {
+            this.clearContent();
 
             LootTable loottable = this.level().getServer().getLootData().getLootTable(this.lootTable);
 

@@ -102,6 +102,7 @@ public class LootChestBlockEntity extends BlockEntity implements Container, Menu
     public void unpackLootTable(Level level) {
         if (this.lootTable != null && level.getServer() != null) {
 
+            this.clearContent();
             LootTable loottable = level.getServer().getLootData().getLootTable(this.lootTable);
 
             LootParams.Builder lootparams_builder =
