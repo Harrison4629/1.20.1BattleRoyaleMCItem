@@ -1,7 +1,5 @@
 package net.harrison.battleroyaleitem.items.rholditem;
 
-import net.harrison.basicdevtool.init.ModMessages;
-import net.harrison.basicdevtool.networking.s2cpacket.PlaySoundToClientS2CPacket;
 import net.harrison.battleroyaleitem.items.AbsRHoldItem;
 import net.harrison.battleroyaleitem.renderer.BioRadarItemRenderer;
 import net.minecraft.ChatFormatting;
@@ -9,9 +7,9 @@ import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
@@ -64,8 +62,7 @@ public class BioRadarItem extends AbsRHoldItem implements GeoItem {
                 if (distance <= RANGE) {
 
                     otherPlayer.addEffect(new MobEffectInstance(MobEffects.GLOWING, GLOW_DURATION, 0, false, false));
-                    ModMessages.sendToPlayer(new PlaySoundToClientS2CPacket(SoundEvents.ELDER_GUARDIAN_CURSE, 1.0F, 1.0F),
-                            (ServerPlayer) otherPlayer);
+                    otherPlayer.playNotifySound(SoundEvents.ELDER_GUARDIAN_CURSE, SoundSource.HOSTILE, 1.0F, 1.0F);
                     otherPlayer.displayClientMessage(Component.translatable("item.battleroyaleitem.bio_radar.detected")
                             .withStyle(ChatFormatting.RED), true);
 

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.harrison.battleroyaleitem.Battleroyaleitem;
 import net.harrison.battleroyaleitem.init.ModItems;
+import net.harrison.battleroyaleitem.screens.ArmorPlateDamageFeedbackHudOverlay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -12,11 +13,12 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderHandEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Battleroyaleitem.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
-public class ArmorPlateAnimationEvent {
+public class ArmorPlateClientEvent {
 
     @SubscribeEvent
     public static void onRenderHand(RenderHandEvent event) {
@@ -37,6 +39,12 @@ public class ArmorPlateAnimationEvent {
             }
         }
     }
+
+    @SubscribeEvent
+    public static void onClientTick(TickEvent.ClientTickEvent event) {
+        ArmorPlateDamageFeedbackHudOverlay.ticks();
+    }
+
 
     private static void renderArmorPlateAnimation(LocalPlayer player, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, ItemStack itemStack, float partialTicks) {
 

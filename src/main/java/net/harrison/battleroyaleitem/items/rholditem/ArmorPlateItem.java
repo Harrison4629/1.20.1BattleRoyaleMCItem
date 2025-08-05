@@ -4,7 +4,7 @@ import net.harrison.battleroyaleitem.capabilities.armorplate.ArmorPlate;
 import net.harrison.battleroyaleitem.capabilities.armorplate.ArmorPlateProvider;
 import net.harrison.battleroyaleitem.init.ModMessages;
 import net.harrison.battleroyaleitem.items.AbsRHoldItem;
-import net.harrison.battleroyaleitem.networking.s2cpacket.ArmorPlateSyncS2CPacket;
+import net.harrison.battleroyaleitem.networking.s2cpacket.ArmorPlateBarSyncS2CPacket;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
@@ -36,7 +36,7 @@ public class ArmorPlateItem extends AbsRHoldItem {
     protected void applyItem(Player player, Level level) {
         player.getCapability(ArmorPlateProvider.ARMOR_PLATE_CAPABILITY).ifPresent(numofArmorPlate -> {
             numofArmorPlate.addArmorPlate(1);
-            ModMessages.sendToPlayer(new ArmorPlateSyncS2CPacket(numofArmorPlate.getNumOfArmorPlate()), (ServerPlayer) player);
+            ModMessages.sendToPlayer(new ArmorPlateBarSyncS2CPacket(numofArmorPlate.getNumOfArmorPlate()), (ServerPlayer) player);
         });
     }
 

@@ -5,7 +5,8 @@ import net.harrison.battleroyaleitem.capabilities.armorplate.ArmorPlate;
 import net.harrison.battleroyaleitem.capabilities.armorplate.ArmorPlateProvider;
 import net.harrison.battleroyaleitem.events.costomEvents.ArmorPlateDamageEvent;
 import net.harrison.battleroyaleitem.init.ModMessages;
-import net.harrison.battleroyaleitem.networking.s2cpacket.ArmorPlateSyncS2CPacket;
+import net.harrison.battleroyaleitem.networking.s2cpacket.ArmorPlateBarSyncS2CPacket;
+import net.harrison.battleroyaleitem.networking.s2cpacket.ArmorPlateFeedBackSyncS2CPacket;
 import net.harrison.battleroyaleitem.util.ParticleSummon;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -46,9 +47,8 @@ public class ArmorPlateEvent {
 
             if (originArmorPlateCount > 0) {
                 float damage = event.getAmount();
-                float allArmorPlateHP = armorPlate.getHP() + (armorPlate.getNumOfArmorPlate() - 1) * armorPlate.MAX_HP_PER_ARMOR_PLATE;
+                float allArmorPlateHP = armorPlate.getHP() + (armorPlate.getNumOfArmorPlate() - 1) * ArmorPlate.MAX_HP_PER_ARMOR_PLATE;
                 armorPlate.subHP(damage);
-
 
                 MinecraftForge.EVENT_BUS.post(new ArmorPlateDamageEvent(player));
 
@@ -58,7 +58,17 @@ public class ArmorPlateEvent {
                     player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS,0.8F, 1.0F);
                 }
 
+                if (source.getEntity() instanceof ServerPlayer sourcePlayer) {
+                    ModMessages.sendToPlayer(new ArmorPlateFeedBackSyncS2CPacket(false), sourcePlayer);
+                }
+
                 if (armorPlate.getNumOfArmorPlate() == 0) {
+                    if (source.getEntity() instanceof ServerPlayer sourcePlayer) {
+                        ModMessages.sendToPlayer(new ArmorPlateFeedBackSyncS2CPacket(true), sourcePlayer);
+                    }
+
+                    //Todo:护甲破碎音效
+
                     ParticleSummon.explosion(player.level(), player.getPosition(1.0F).add(0, 1, 0), 5);
                     if (damage > allArmorPlateHP) {
                         float extraDamage = damage - allArmorPlateHP;
@@ -67,7 +77,7 @@ public class ArmorPlateEvent {
                 }
 
             }
-            ModMessages.sendToPlayer(new ArmorPlateSyncS2CPacket(armorPlate.getNumOfArmorPlate()), (ServerPlayer) player);
+            ModMessages.sendToPlayer(new ArmorPlateBarSyncS2CPacket(armorPlate.getNumOfArmorPlate()), (ServerPlayer) player);
         });
     }
 
@@ -84,7 +94,7 @@ public class ArmorPlateEvent {
         LazyOptional<ArmorPlate> armorCapability = player.getCapability(ArmorPlateProvider.ARMOR_PLATE_CAPABILITY);
         armorCapability.ifPresent(armorPlate -> {
                 //armorPlate.subAllArmorPlate();
-            ModMessages.sendToPlayer(new ArmorPlateSyncS2CPacket(armorPlate.getNumOfArmorPlate()), (ServerPlayer) player);
+            ModMessages.sendToPlayer(new ArmorPlateBarSyncS2CPacket(armorPlate.getNumOfArmorPlate()), (ServerPlayer) player);
         });
     }
 
@@ -99,7 +109,7 @@ public class ArmorPlateEvent {
         }
 
         LazyOptional<ArmorPlate> armorCapability = player.getCapability(ArmorPlateProvider.ARMOR_PLATE_CAPABILITY);
-        armorCapability.ifPresent(numofArmorPlate -> ModMessages.sendToPlayer(new ArmorPlateSyncS2CPacket(numofArmorPlate.getNumOfArmorPlate()), player));
+        armorCapability.ifPresent(numofArmorPlate -> ModMessages.sendToPlayer(new ArmorPlateBarSyncS2CPacket(numofArmorPlate.getNumOfArmorPlate()), player));
     }
 
 }

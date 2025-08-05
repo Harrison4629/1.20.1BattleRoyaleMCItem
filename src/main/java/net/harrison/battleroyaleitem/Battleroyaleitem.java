@@ -1,8 +1,9 @@
 package net.harrison.battleroyaleitem;
 
-import net.harrison.battleroyaleitem.screens.ArmorPlateHudOverlay;
+import net.harrison.battleroyaleitem.screens.ArmorPlateBarHudOverlay;
 import net.harrison.battleroyaleitem.init.*;
 import net.harrison.battleroyaleitem.particle.AirdropSmokeParticle;
+import net.harrison.battleroyaleitem.screens.ArmorPlateDamageFeedbackHudOverlay;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
@@ -52,7 +53,8 @@ public class Battleroyaleitem {
 
         @SubscribeEvent
         public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
-            event.registerAboveAll("armor_plate", ArmorPlateHudOverlay.HUD_ARMOR_PLATE);
+            event.registerAboveAll("armor_plate_bar", ArmorPlateBarHudOverlay.HUD_ARMOR_PLATE_BAR);
+            event.registerAboveAll("armor_plate_icon", ArmorPlateDamageFeedbackHudOverlay.ARMOR_PLATE_Feedback);
         }
 
         @SubscribeEvent
