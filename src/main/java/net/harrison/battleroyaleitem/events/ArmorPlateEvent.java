@@ -77,7 +77,7 @@ public class ArmorPlateEvent {
                 }
 
             }
-            ModMessages.sendToPlayer(new ArmorPlateBarSyncS2CPacket(armorPlate.getNumOfArmorPlate()), (ServerPlayer) player);
+            ModMessages.sendToPlayer(new ArmorPlateBarSyncS2CPacket(armorPlate.getNumOfArmorPlate(), armorPlate.getHP()), (ServerPlayer) player);
         });
     }
 
@@ -94,7 +94,7 @@ public class ArmorPlateEvent {
         LazyOptional<ArmorPlate> armorCapability = player.getCapability(ArmorPlateProvider.ARMOR_PLATE_CAPABILITY);
         armorCapability.ifPresent(armorPlate -> {
                 //armorPlate.subAllArmorPlate();
-            ModMessages.sendToPlayer(new ArmorPlateBarSyncS2CPacket(armorPlate.getNumOfArmorPlate()), (ServerPlayer) player);
+            ModMessages.sendToPlayer(new ArmorPlateBarSyncS2CPacket(armorPlate.getNumOfArmorPlate(), armorPlate.getHP()), (ServerPlayer) player);
         });
     }
 
@@ -109,7 +109,7 @@ public class ArmorPlateEvent {
         }
 
         LazyOptional<ArmorPlate> armorCapability = player.getCapability(ArmorPlateProvider.ARMOR_PLATE_CAPABILITY);
-        armorCapability.ifPresent(numofArmorPlate -> ModMessages.sendToPlayer(new ArmorPlateBarSyncS2CPacket(numofArmorPlate.getNumOfArmorPlate()), player));
+        armorCapability.ifPresent(numofArmorPlate -> ModMessages.sendToPlayer(new ArmorPlateBarSyncS2CPacket(numofArmorPlate.getNumOfArmorPlate(), numofArmorPlate.getHP()), player));
     }
 
 }

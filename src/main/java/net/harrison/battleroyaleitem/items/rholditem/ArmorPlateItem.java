@@ -36,7 +36,7 @@ public class ArmorPlateItem extends AbsRHoldItem {
     protected void applyItem(Player player, Level level) {
         player.getCapability(ArmorPlateProvider.ARMOR_PLATE_CAPABILITY).ifPresent(numofArmorPlate -> {
             numofArmorPlate.addArmorPlate(1);
-            ModMessages.sendToPlayer(new ArmorPlateBarSyncS2CPacket(numofArmorPlate.getNumOfArmorPlate()), (ServerPlayer) player);
+            ModMessages.sendToPlayer(new ArmorPlateBarSyncS2CPacket(numofArmorPlate.getNumOfArmorPlate(), numofArmorPlate.getHP()), (ServerPlayer) player);
         });
     }
 

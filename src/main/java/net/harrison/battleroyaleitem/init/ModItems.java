@@ -15,21 +15,21 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Battleroyaleitem.MODID);
 
     public static final RegistryObject<Item> MEDKIT = ITEMS.register("medkit",
-            () -> new MedkitItem(new Item.Properties().stacksTo(5)));
+            () -> new MedkitItem(new Item.Properties().stacksTo(64)));
     public static final RegistryObject<Item> BANDAGE = ITEMS.register("bandage",
-            () -> new BandageItem(new Item.Properties().stacksTo(8)));
+            () -> new BandageItem(new Item.Properties().stacksTo(64)));
     public static final RegistryObject<Item> CHAMELEON = ITEMS.register("chameleon",
             () -> new ChameleonItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> REGENERATION_SYRINGE = ITEMS.register("regeneration_syringe",
-            () -> new RegenerationSyringeItem(new Item.Properties().stacksTo(1)));
+            () -> new RegenerationSyringeItem(new Item.Properties().stacksTo(64)));
     public static final RegistryObject<Item> PHASE_CORE = ITEMS.register("phase_core",
-            () -> new PhaseCoreItem(new Item.Properties().stacksTo(3)));
+            () -> new PhaseCoreItem(new Item.Properties().stacksTo(64)));
     public static final RegistryObject<Item> BIO_RADAR = ITEMS.register("bio_radar",
-            () -> new BioRadarItem(new Item.Properties().stacksTo(1)));
+            () -> new BioRadarItem(new Item.Properties().stacksTo(64)));
     public static final RegistryObject<Item> LIFT_DEVICE = ITEMS.register("lift_device",
-            () -> new LiftDeviceItem(ModEntities.LIFT_DEVICE, new Item.Properties().stacksTo(2)));
+            () -> new LiftDeviceItem(ModEntities.LIFT_DEVICE, new Item.Properties().stacksTo(64)));
     public static final RegistryObject<Item> ARMOR_PLATE = ITEMS.register("armor_plate",
-            () -> new ArmorPlateItem(new Item.Properties().stacksTo(3)));
+            () -> new ArmorPlateItem(new Item.Properties().stacksTo(64)));
 
     public static void register(IEventBus bus) {
         ITEMS.register(bus);
