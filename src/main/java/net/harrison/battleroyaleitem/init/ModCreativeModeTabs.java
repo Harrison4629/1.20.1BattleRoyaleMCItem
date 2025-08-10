@@ -27,6 +27,9 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.LIFT_DEVICE.get());
                         output.accept(ModItems.ARMOR_PLATE.get());
                         output.accept(ModBlocks.LOOT_CHEST.get());
+                        output.accept(ModBlocks.COMMON_LOOT_CHEST.get());
+                        output.accept(ModBlocks.RARE_LOOT_CHEST.get());
+                        output.accept(ModBlocks.EPIC_LOOT_CHEST.get());
                     })
                     .build());
 

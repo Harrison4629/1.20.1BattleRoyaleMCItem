@@ -52,6 +52,9 @@
   "item.battleroyaleitem.armor_plate.use_fail": "护甲板已满，无需填充",
 
   "block.battleroyaleitem.loot_chest": "战利品箱",
+  "block.battleroyaleitem.common_loot_chest": "普通战利品箱",
+  "block.battleroyaleitem.rare_loot_chest": "稀有战利品箱",
+  "block.battleroyaleitem.epic_loot_chest": "史诗战利品箱",
 
   "effect.battleroyaleitem.chameleon_effect": "脆弱隐形",
 

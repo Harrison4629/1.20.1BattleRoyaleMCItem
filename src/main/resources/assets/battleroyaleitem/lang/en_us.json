@@ -52,6 +52,9 @@
   "item.battleroyaleitem.armor_plate.use_fail": "",
 
   "block.battleroyaleitem.loot_chest": "",
+  "block.battleroyaleitem.common_loot_chest": "",
+  "block.battleroyaleitem.rare_loot_chest": "",
+  "block.battleroyaleitem.epic_loot_chest": "",
 
   "effect.battleroyaleitem.chameleon_effect": "",
 

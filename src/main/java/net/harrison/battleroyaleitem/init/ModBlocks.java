@@ -18,6 +18,12 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> LOOT_CHEST = registryBlock("loot_chest",
             () -> new LootChestBlock(BlockBehaviour.Properties.of().noOcclusion()));
+    public static final RegistryObject<Block> COMMON_LOOT_CHEST = registryBlock("common_loot_chest",
+            () -> new LootChestBlock(BlockBehaviour.Properties.of().noOcclusion()));
+    public static final RegistryObject<Block> RARE_LOOT_CHEST = registryBlock("rare_loot_chest",
+            () -> new LootChestBlock(BlockBehaviour.Properties.of().noOcclusion()));
+    public static final RegistryObject<Block> EPIC_LOOT_CHEST = registryBlock("epic_loot_chest",
+            () -> new LootChestBlock(BlockBehaviour.Properties.of().noOcclusion()));
 
 
     private static <T extends Block> RegistryObject<T> registryBlock(String name, Supplier<T> block) {

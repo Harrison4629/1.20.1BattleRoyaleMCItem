@@ -52,31 +52,6 @@ public class PhaseCoreEvent {
                         ParticleSummon.teleportEffect(player.level(), player.getPosition(1.0F), 5);
                     }
                 }
-
-
-                //if (!phaseCore.isTimeUp()) {
-                //    phaseCore.subTicks();
-//
-                //    player.setDeltaMovement(phaseCore.getDirection().scale(speed));
-//
-                //    ModMessages.sendToPlayer(new DeltaMovementSyncS2CPacket(phaseCore.getDirection().scale(speed)), (ServerPlayer) player);
-                //    if (player.tickCount %5 == 0) {
-                //        ParticleSummon.teleportEffect(player.level(), player.getPosition(1.0F), 5);
-                //    }
-                //} else {
-                //    if (!phaseCore.hasTracedBack()) {
-                //        ParticleSummon.spawnParticleSpiral(player.level(), player.getPosition(1.0F), 3, ParticleTypes.PORTAL);
-                //        player.teleportTo(phaseCore.getIniPos().x, phaseCore.getIniPos().y, phaseCore.getIniPos().z);
-                //        ParticleSummon.spawnParticleSpiral(player.level(), phaseCore.getIniPos(), 3, ParticleTypes.PORTAL);
-//
-                //        player.displayClientMessage(Component.translatable("item.battleroyaleitem.phase_core.trace_back")
-                //                .withStyle(ChatFormatting.BLUE), true);
-                //        player.level().playSound(null, phaseCore.getIniPos().x, phaseCore.getIniPos().y, phaseCore.getIniPos().z,
-                //                SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 0.8F, 1.0F);
-//
-                //        phaseCore.reset();
-                //    }
-                //}
             });
         }
     }
