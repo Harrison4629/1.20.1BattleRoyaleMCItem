@@ -5,6 +5,7 @@ import net.harrison.battleroyaleitem.capabilities.armorplate.ArmorPlate;
 import net.harrison.battleroyaleitem.capabilities.armorplate.ArmorPlateProvider;
 import net.harrison.battleroyaleitem.events.costomEvents.ArmorPlateDamageEvent;
 import net.harrison.battleroyaleitem.init.ModMessages;
+import net.harrison.battleroyaleitem.init.ModSounds;
 import net.harrison.battleroyaleitem.networking.s2cpacket.ArmorPlateBarSyncS2CPacket;
 import net.harrison.battleroyaleitem.networking.s2cpacket.ArmorPlateFeedBackSyncS2CPacket;
 import net.harrison.battleroyaleitem.util.ParticleSummon;
@@ -58,17 +59,19 @@ public class ArmorPlateEvent {
                     player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS,0.8F, 1.0F);
                 }
 
+                //伤害来源玩家
                 if (source.getEntity() instanceof ServerPlayer sourcePlayer) {
-                    ModMessages.sendToPlayer(new ArmorPlateFeedBackSyncS2CPacket(false), sourcePlayer);
+                    if (armorPlate.getNumOfArmorPlate() == 0) {
+                        ModMessages.sendToPlayer(new ArmorPlateFeedBackSyncS2CPacket(true), sourcePlayer);
+                        sourcePlayer.playNotifySound(ModSounds.ARMOR__PLATE_BREAK.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+                    } else {
+                        ModMessages.sendToPlayer(new ArmorPlateFeedBackSyncS2CPacket(false), sourcePlayer);
+                        sourcePlayer.playNotifySound(ModSounds.ARMOR_PLATE_HIT.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+                    }
                 }
 
+                //受击玩家
                 if (armorPlate.getNumOfArmorPlate() == 0) {
-                    if (source.getEntity() instanceof ServerPlayer sourcePlayer) {
-                        ModMessages.sendToPlayer(new ArmorPlateFeedBackSyncS2CPacket(true), sourcePlayer);
-                    }
-
-                    //Todo:护甲破碎音效
-
                     ParticleSummon.explosion(player.level(), player.getPosition(1.0F).add(0, 1, 0), 5);
                     if (damage > allArmorPlateHP) {
                         float extraDamage = damage - allArmorPlateHP;

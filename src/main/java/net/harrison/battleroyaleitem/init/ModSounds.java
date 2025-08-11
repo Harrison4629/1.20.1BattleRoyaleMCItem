@@ -16,6 +16,10 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> CLOSE_LOOT_CHEST = registerSoundEvent("close_loot_chest");
 
+    public static final RegistryObject<SoundEvent> ARMOR_PLATE_HIT = registerSoundEvent("armor_plate_hit");
+
+    public static final RegistryObject<SoundEvent> ARMOR__PLATE_BREAK = registerSoundEvent("armor_plate_break");
+
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(Battleroyaleitem.MODID, name)));
     }
